@@ -1,0 +1,37 @@
+{
+  "name": "links",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "index": true
+    },
+    "domain": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "tags": {
+      "type": "Object"
+    },
+    "template": {
+      "type": "Object"
+    },
+    "submited":{
+      "type": "Boolean"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

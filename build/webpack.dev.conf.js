@@ -31,6 +31,7 @@ module.exports = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
+    new webpack.IgnorePlugin(/jsdom$/),
     new FriendlyErrors()
   ]
 })

@@ -21,7 +21,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-     'muse-components': 'muse-ui/src',
       vue: 'vue/dist/vue.js'
     },
     extensions: ['', '.js', '.vue', '.json'],

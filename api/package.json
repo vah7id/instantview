@@ -18,6 +18,7 @@
     "loopback-connector-mysql": "^3.0.0",
     "loopback-datasource-juggler": "^2.39.0",
     "serve-favicon": "^2.0.1",
+    "cheerio":"^1.0.0",
     "strong-error-handler": "^1.0.1"
   },
   "devDependencies": {

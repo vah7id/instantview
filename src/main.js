@@ -9,7 +9,7 @@ import PublishView from './components/Publish.vue'
 
 import App from './components/App.vue'
 
-const api_port = '3000', 
+const api_port = '8000', 
       protocol = 'http://',
       api_url = protocol+window.location.hostname+':'+api_port+'/api/';
 

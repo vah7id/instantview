@@ -1,7 +1,6 @@
-# FLASHBOARD
+# TELEGRAM INSTANT VIEW
 
-> Restfull api and admin dashboard generator easy, fast and clean based on loopback node.js  framework as server-side and vue.js 2 in client-side.
-
+> generate telegram instant view
 ## Build Setup
 
 ``` bash

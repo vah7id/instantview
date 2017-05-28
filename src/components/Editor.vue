@@ -1,16 +1,7 @@
 <template>
   <div>
-  <!--  
-    <div class="sidebar">
-
-    </div>
-
-    <div id="main">
-
-    </div>
-  -->
     <section class="editor">
-        <div class="url-parse-container">
+        <div class="url-parse-container" id="main">
 
         </div>
     </section>
@@ -60,7 +51,7 @@
   /* --- EDITOR STYLES --- */
 
   .editor{
-    height : calc(100% - 200px);
+    height : calc(100% - 160px);
     box-sizing : border-box;
   }
   .url-parse-container{
@@ -69,7 +60,7 @@
     overflow: scroll;
   }
   aside{
-    height: 200px;
+    height: 160px;
     padding : 0px;
     box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
     position : fixed;
@@ -101,7 +92,7 @@
     width: 50%;
   }
   .checklist-container.link-preview-steps{
-    width: 25%;
+    width: 20%;
   }
   .steps-container{
   }
@@ -112,7 +103,7 @@
   }
 
   .instant-view-steps .steps-container > li{
-    width: calc(50% - 20px);
+    width: calc(33% - 20px);
     margin-left: 20px;
   }
   .link-preview-steps .steps-container > li{

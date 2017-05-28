@@ -7,7 +7,7 @@
 </template>
 
 <style lang="css">
-}
+
 </style>
 
 <script type="text/javascript">

@@ -19,10 +19,10 @@ window.api_url = api_url;
 
 var _routes = {
   routes: [
-    { path: '', component: DashboardView, name: 'Instant View Telegram Generator' },
-    { path: '/start', component: DashboardView, name: 'Instant View Telegram Generator' },
-    { path: '/editor', component: LoginView, name: 'Editor Instant View Maker' },
-    { path: '/publish', component: UnavailableView, name: 'Publish your instant view' }
+    { path: '', component: StartView, name: 'Instant View Telegram Generator' },
+    { path: '/start', component: StartView, name: 'Instant View Telegram Generator' },
+    { path: '/editor', component: EditorView, name: 'Editor Instant View Maker' },
+    { path: '/publish', component: PublishView, name: 'Publish your instant view' }
   ]
 };
 
@@ -63,6 +63,5 @@ new Vue({
   router
 }).$mount('#app')//mount the router on the app
 
-});
 
 

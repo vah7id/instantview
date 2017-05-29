@@ -10,8 +10,8 @@
         <div class="checklist-container instant-view-steps">
           <h3><b>Instant View</b> Checklist</h3>
           <ul class="steps-container">
-            <li class="indicator-article-body"><i class="material-icons">check</i><span>Article Body</span></li>
-            <li class="indicator-title"><i class="material-icons">check</i><span>Title</span></li>
+            <li class="indicator-article-body"><i class="material-icons">check</i><span>Article Body *</span></li>
+            <li class="indicator-title"><i class="material-icons">check</i><span>Title *</span></li>
             <li class="indicator-cover done"><i class="material-icons">check</i><span>Cover</span></li>
             <li class="indicator-subtitle"><i class="material-icons">check</i><span>Subtitle</span></li>
             <li class="indicator-author"><i class="material-icons">check</i><span>Author</span></li>
@@ -26,13 +26,21 @@
           </ul>
         </div>
         <div class="actions-container">
+          <div class="extra-actions">
+            <h3><b>Channel</b> Name</h3>
+            <input type="text" name="channelName" placeholder="@username" value="">
+            <hr>
+          </div>
           <ul>
-            <li><span>Show Preview</span></li>
-            <li><span>Create Template</span></li>
+            <li><button v-on:click="showPreview" class="medium show-preview">SHOW PREVIEW</button></li>
+            <li><button class="medium line submit-template">SUBMIT</button></li>
           </ul>
         </div>
       </div>
     </aside>
+    <div class="message-area">
+      
+    </div>
   </div>
 </template>
 
@@ -60,15 +68,7 @@
     left: 0;
     bottom:0;
   }
-  .actions-container{
-    position : absolute;
-    bottom:0;
-    right: 0;
-  }
-  .checklist-container{
-    float: left;
-  }
-  .checklist-container h3{
+  aside h3{
     color: #232323;
     margin-left: 20px;
     margin-top: 30px;
@@ -76,9 +76,22 @@
     padding-bottom: 15px;
     font-size: 14px;
     font-weight: 300;
-    border-bottom: 1px solid #1e98d4;
+    text-align: left;
     text-transform: uppercase;
     letter-spacing: 2px;
+  }
+  .checklist-container{
+    float: left;
+    height: 160px;
+  }
+  .checklist-container > h3{
+    border-bottom: 1px solid #1e98d4;
+  }
+  .extra-actions > h3{
+    margin-bottom: 0px;
+    margin-top: 0;
+    padding-top: 30px;
+    display: none;
   }
   .checklist-container.instant-view-steps{
     width: 50%;
@@ -86,7 +99,38 @@
   .checklist-container.link-preview-steps{
     width: 20%;
   }
-  .steps-container{
+  .actions-container{
+    width: calc(30% - 21px);
+    margin-left: 20px;
+    height: 160px;
+    float: left;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-left: 1px solid #efefef;
+  }
+  .actions-container > ul{
+    padding: 15px 0;
+  }
+  .actions-container > ul > li{
+    float: left;
+    width: calc(50% - 22px);
+    padding-left: 15px;
+  }
+  .actions-container > ul > li > button{
+    width: 100%;
+  }
+  .extra-actions{
+    height: 95px
+  }
+  .extra-actions > hr{
+    margin: 10px 15px;
+    opacity: .15;
+  }
+  .extra-actions > input{
+    width: calc(100% - 30px);
+    margin: 15px;
+    font-size: 14px;
+    padding: 10px;
   }
   .steps-container > li{
     height: 38px;
@@ -198,7 +242,14 @@
         })
 
       },
+      mounted(){
+
+      },
       methods: {
+        showPreview(){
+
+        }
+
 
       }
   }

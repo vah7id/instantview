@@ -44,18 +44,22 @@
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #bbb;
+    font-weight: 300;
     letter-spacing: 1px;    
   }
   ::-moz-placeholder { /* Firefox 19+ */
     color: #bbb;
+    font-weight: 300;
     letter-spacing: 1px;    
   }
   :-ms-input-placeholder { /* IE 10+ */
     color: #bbb;
+    font-weight: 300;
     letter-spacing: 1px;    
   }
   :-moz-placeholder { /* Firefox 18- */
     color: #bbb;
+    font-weight: 300;
     letter-spacing: 1px;    
   }  
 
@@ -83,12 +87,31 @@
     -webkit-transition: all .4s; 
     transition: all .4s;    
   }
+  button.medium{
+    height: 37px;
+    font-size: 12px;
+  }
   button:hover{
     background-color: #1ca5e8;
   }
   button:active{
     background-color: #2088bb;
   }
+  button.line{
+    background-color: transparent;
+    color: #1e98d4;
+    border: 1px solid #1e98d4;;
+  }
+  button.line:hover{
+    color: #1ca5e8;
+    border: 1px solid #1ca5e8;;
+  }
+  button.line:active{
+    color: #2088bb;
+    border: 1px solid #2088bb;;
+  }
+
+
 
   input{
     height: 42px;

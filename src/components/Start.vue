@@ -29,24 +29,34 @@
     margin : 0;
     height : 100%;
     font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;  
   }
   body>div, body>div>div{
     height : 100%;
+  }
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   /* --- PLACHOLDER STYLES --- */
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #bbb;
+    letter-spacing: 1px;    
   }
   ::-moz-placeholder { /* Firefox 19+ */
     color: #bbb;
+    letter-spacing: 1px;    
   }
   :-ms-input-placeholder { /* IE 10+ */
     color: #bbb;
+    letter-spacing: 1px;    
   }
   :-moz-placeholder { /* Firefox 18- */
     color: #bbb;
+    letter-spacing: 1px;    
   }  
 
   /* --- OVERRIDE STYLES --- */

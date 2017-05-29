@@ -69,59 +69,6 @@
     font-weight: 300;
   }
 
-  /* --- ELEMENT STYLES --- */
-
-  button{
-    height: 42px;
-    padding: 10px 16px;
-    font-size: 15px;
-    line-height: 1.33;
-    border: none;
-    outline: none;
-    background-color: #1e98d4;
-    color: #FFF;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center;
-    cursor: pointer;
-    -webkit-transition: all .4s; 
-    transition: all .4s;    
-  }
-  button.medium{
-    height: 37px;
-    font-size: 12px;
-  }
-  button:hover{
-    background-color: #1ca5e8;
-  }
-  button:active{
-    background-color: #2088bb;
-  }
-  button.line{
-    background-color: transparent;
-    color: #1e98d4;
-    border: 1px solid #1e98d4;;
-  }
-  button.line:hover{
-    color: #1ca5e8;
-    border: 1px solid #1ca5e8;;
-  }
-  button.line:active{
-    color: #2088bb;
-    border: 1px solid #2088bb;;
-  }
-
-
-
-  input{
-    height: 42px;
-    padding: 10px 16px;
-    font-size: 15px;
-    line-height: 1.33;
-    box-sizing: border-box;
-    outline: none;
-    box-shadow: none;
-  }
 
   /* --- LAYOUT STYLES --- */
 

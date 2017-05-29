@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="editor" style="display:none">
+    <section class="editor">
         <div class="url-parse-container" id="main">
 
         </div>
@@ -201,7 +201,7 @@
         }
       },
       created() {
-        this.url = 'http://www.bama.ir/car/details-2-2431689/2008-bmw-x3-25-for-sale';
+        this.url = 'http://1pezeshk.com/archives/2017/05/cambridge-librarian-reveals-the-fashion-used-to-be-for-spines-to-face-the-wall.html';
         var self = this;
 
         var domain = this.url.split('http://')[1].split('/')[0];

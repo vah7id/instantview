@@ -1,19 +1,8 @@
 <template>
   <div>
-<<<<<<< HEAD
-  
-  <div class="sidebar">
-
-  </div>
-
-  <div id="main">
-
-  </div>
-=======
     <section class="editor">
-        <div class="url-parse-container">
->>>>>>> 625513bfa93b5cead814e733348c85640c179c58
-
+        <div id="main" class="url-parse-container">
+          
         </div>
     </section>
     <aside>
@@ -49,16 +38,13 @@
     margin: 0;
     padding: 0;
   }
-  .main{
-    width: 100%;
-    height: 100%;
-  }
 
   /* --- EDITOR STYLES --- */
 
   .editor{
-    width : calc(100% - 340px);
+    width : calc(100%);
     height : 100%;
+    float: left;
     box-sizing : border-box;
   }
   .url-parse-container{
@@ -97,12 +83,40 @@
         }
       },
       created() {
-        this.url = 'http://digiato.com/article/2017/05/28/%D8%AA%D9%84%D9%81%DB%8C%D9%82-%D8%AF%D9%86%DB%8C%D8%A7%DB%8C-%D8%A2%D9%86%D8%A7%D9%84%D9%88%DA%AF-%D9%88-%D8%AF%DB%8C%D8%AC%DB%8C%D8%AA%D8%A7%D9%84-%D8%AF%D8%B1-%D8%A7%D8%B3%DA%A9%D9%88%D8%AA%D8%B1/';
+        this.url = 'http://www.bama.ir/car/details-2-2431689/2008-bmw-x3-25-for-sale';
         var self = this;
+
+        var domain = this.url.split('http://')[1].split('/')[0];
 
         request( window.api_url+'links/getHTML?url='+this.url , function(er, response, body) {
           if(!er){
-            console.log(body)
+
+            var el = document.createElement( 'div' );
+            el.innerHTML = JSON.parse(body).html.body;
+            document.getElementById('main').innerHTML = el.innerHTML;
+            
+            var _base_url = 'http://'+domain;
+
+
+            if(JSON.parse(body).html['link-css']){
+              for(var css in JSON.parse(body).html['link-css']){
+
+                if(JSON.parse(body).html['link-css'][css].indexOf('http://')>-1 ||
+                  JSON.parse(body).html['link-css'][css].indexOf('www.')>-1){
+                  _base_url = '';
+                }
+
+                document.getElementsByTagName('head')[0].innerHTML = document.getElementsByTagName('head')[0].innerHTML + '<link href="'+_base_url+JSON.parse(body).html['link-css'][css]+'" type="text/css" rel="stylesheet" media="all" />';
+              }
+
+            }
+
+            if(JSON.parse(body).html['inline-css']){
+              for(var css in JSON.parse(body).html['inline-css']){
+                document.getElementsByTagName('head')[0].innerHTML = document.getElementsByTagName('head')[0].innerHTML + '<style type="text/css">'+JSON.parse(body).html['inline-css'][css]+'</style>'
+              }
+            }
+
           }
 
           console.log('There was an error, but at least browser-request loaded and ran!')

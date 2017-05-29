@@ -1,33 +1,64 @@
 <template>
-  <div>
+
+  <div :class="designMode">
     <section class="editor">
         <div class="url-parse-container" id="main">
         <iframe width="100%" height="100%" border="none" id="website-container-iframe-vue"></iframe>
         </div>
+        <div class="assistant-container">
+          <p><b>Select</b> related rules to element from <b>below Rules</b></p>
+        </div>
+        <div v-on:click="exitSelectMode()" class="editor-overlay"></div>
     </section>
     <aside class="sidebar">
       <div class="aside-title">
         <div class="checklist-container instant-view-steps">
-          <h3><b>Instant View</b> Checklist</h3>
+          <h3 class="h-default"><b>Instant View</b> Checklist</h3>
+          <h3 class="h-select"><b>Select</b> Instant View Rule</h3>
           <ul class="steps-container">
-            <li class="indicator-article-body"><i class="material-icons">check</i><span>Article Body *</span></li>
-            <li class="indicator-title"><i class="material-icons">check</i><span>Title *</span></li>
-            <li class="indicator-cover done"><i class="material-icons">check</i><span>Cover</span></li>
-            <li class="indicator-subtitle"><i class="material-icons">check</i><span>Subtitle</span></li>
-            <li class="indicator-author"><i class="material-icons">check</i><span>Author</span></li>
-            <li class="indicator-published-dat"><i class="material-icons">check</i><span>Published Date</span></li>
+            <li class="format-type" id="indicator-article-body">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Article Body *</span>
+            </li>
+            <li class="format-type" id="indicator-title">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Title *</span>
+            </li>
+            <li class="format-type done" id="indicator-cover">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Cover</span>
+            </li>
+            <li class="format-type" id="indicator-subtitle">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Subtitle</span>
+            </li>
+            <li class="format-type" id="indicator-author">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Author</span>
+            </li>
+            <li class="format-type" id="indicator-published-dat">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Published Date</span>
+            </li>
           </ul>
         </div>
         <div class="checklist-container link-preview-steps">
-          <h3><b>Link Preview</b> Checklist</h3>
+          <h3 class="h-default"><b>Link Preview</b> Checklist</h3>
+          <h3 class="h-select"><b>Select</b> Link Preview Rule</h3>
           <ul class="steps-container">
-            <li class=""><i class="material-icons">check</i><span>Description</span></li>
-            <li class=""><i class="material-icons">check</i><span>Image</span></li>
+            <li class="format-type" id="indicator-description">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Description</span>
+            </li>
+            <li class="format-type" id="indicator-image">
+              <i class="checkmark-container"><i class="material-icons">check</i></i>
+              <span>Image</span>
+            </li>
           </ul>
         </div>
         <div class="actions-container">
           <div class="extra-actions">
-            <h3><b>Channel</b> Name</h3>
+            <h3 class="h-default"><b>Channel</b> Name</h3>
             <input type="text" name="channelName" placeholder="@username" value="">
             <hr>
           </div>
@@ -106,10 +137,6 @@
   }
 
   /* --- EDITOR STYLES --- */
-  .editor{
-    height : calc(100% - 160px);
-    box-sizing : border-box;
-  }
 
   .url-parse-container{
     background-color : #efefef;
@@ -119,7 +146,50 @@
   .editor{
     height : calc(100% - 160px);
     box-sizing : border-box;
+    position: relative;
   }  
+  .editor-overlay{
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    display: none;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .select-format .editor-overlay{
+    display: block;
+  }
+  .assistant-container{
+    width: 600px;
+    text-align: center;
+    background-color: #FFF;
+    position: absolute;
+    left: calc(50% - 300px);
+    bottom: 50px;
+    right: 0;
+    z-index: 20;
+    border-radius: 10px;
+    display: none;
+  }
+  .assistant-container > p{
+    font-weight: 300;
+  }
+  .select-format .assistant-container{
+    display: block;
+  }
+  .h-select{
+    display: none;
+  }
+  .select-format .h-select{
+    display: block;
+  }
+  .select-format .h-default{
+    display: none;
+  }
   aside{
     height: 160px;
     padding : 0px;
@@ -202,8 +272,10 @@
   .steps-container > li{
     height: 38px;
     float: left;
-    cursor: pointer;
     margin: 0;
+  }
+  .select-format .steps-container > li{
+    cursor: pointer;
   }
 
   .instant-view-steps .steps-container > li{
@@ -238,16 +310,39 @@
     -webkit-transition: all .2s; 
     transition: all .2s;    
   }
-  .steps-container > li:hover > span{
+  .steps-container > li > i > i{
+    display: inline-block;
+    font-size: 18px;
+    line-height: 22px;
+    float: left;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    text-align: center;
+    color: #dedede;
+    display: none;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .select-fromat .steps-container > li:hover > span{
     color: rgba(30, 152, 212, 0.5);
   }
-  .steps-container > li:hover > i{
+  .select-format .steps-container > li:hover > i{
     color: rgba(30, 152, 212, 0.5);
   }
+  .select-format .steps-container > li:hover > i > i{
+    display: block;
+    color: rgba(30, 152, 212, 0.5);
+  }
+
   .steps-container > li.done > span{
     color: #1e98d4;
   }
   .steps-container > li.done > i{
+    color: #1e98d4;
+  }
+  .steps-container > li.done > i > i{
+    display: block;
     color: #1e98d4;
   }
   #website-container-iframe-vue{
@@ -271,8 +366,16 @@
         return {
           name: null,
           url: null,
-          html: null
+          html: null,
+          designMode: ''
         }
+      },
+      watch:{
+        designMode: function(val){
+          this.designMode = val;
+          return val;
+        }
+
       },
       created() {
         this.url = 'http://1pezeshk.com/archives/2017/05/cambridge-librarian-reveals-the-fashion-used-to-be-for-spines-to-face-the-wall.html';
@@ -318,6 +421,12 @@
 
             setTimeout(function(){
 
+              var formatTypes = document.querySelectorAll('.format-type')
+
+              formatTypes.forEach(function(type) {
+                type.addEventListener('click', self.selectFormat, true)
+              });
+
               var iframe = document.getElementById('website-container-iframe-vue');
               var AllElements = iframe.contentWindow.document.querySelector('body').getElementsByTagName('*');
         
@@ -335,6 +444,13 @@
 
                 AllElements[i].addEventListener("mouseleave", function(e){
                   e.target.classList.remove('bordered-active-el');
+                }, false);
+
+                AllElements[i].addEventListener("click", function(e){
+                  console.log('YAY');
+                  if(e.target.nodeName == 'A')
+                    e.preventDefault();
+                  self.designMode = 'select-format';
                 }, false);
 
               }
@@ -355,6 +471,12 @@
       methods: {
         showPreview(){
 
+        },
+        selectFormat(){
+          console.log('Work');
+        },
+        exitSelectMode(){
+          this.designMode = ''
         }
 
 

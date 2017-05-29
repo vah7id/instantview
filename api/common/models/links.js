@@ -12,7 +12,8 @@ module.exports = function(links) {
     	
         const $ = cheerio.load(body)
         var html = {
-        	body: $('body').html()
+        	body: $('body').html(),
+        	bodyClasses : $('body').attr('class')
         };
 
   		if($('style')){

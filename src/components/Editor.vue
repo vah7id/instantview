@@ -2,7 +2,7 @@
   <div>
     <section class="editor">
         <div class="url-parse-container" id="main">
-
+        <iframe width="100%" height="100%" border="none" id="website-container-iframe-vue"></iframe>
         </div>
     </section>
     <aside class="sidebar">
@@ -53,6 +53,10 @@
   }
 
   /* --- EDITOR STYLES --- */
+  .editor{
+    height : calc(100% - 160px);
+    box-sizing : border-box;
+  }
 
   .url-parse-container{
     background-color : #efefef;
@@ -181,7 +185,12 @@
   .steps-container > li.done > i{
     color: #1e98d4;
   }
-
+  #website-container-iframe-vue{
+    width: 100% !important;
+    height: 100% !important;
+    border:none !important;
+    max-width: 100% !important;
+  }
 </style>
 
 <script type="text/javascript">
@@ -211,10 +220,9 @@
 
             var el = document.createElement( 'div' );
             el.innerHTML = JSON.parse(body).html.body;
-            document.getElementById('main').innerHTML = el.innerHTML;
-            
-            var _base_url = 'http://'+domain;
 
+
+            var _base_url = 'http://'+domain, _head = '';
 
             if(JSON.parse(body).html['link-css']){
               for(var css in JSON.parse(body).html['link-css']){
@@ -224,26 +232,60 @@
                   _base_url = '';
                 }
 
-                document.getElementsByTagName('head')[0].innerHTML = document.getElementsByTagName('head')[0].innerHTML + '<link href="'+_base_url+JSON.parse(body).html['link-css'][css]+'" type="text/css" rel="stylesheet" media="all" />';
+                _head += '<link href="'+_base_url+JSON.parse(body).html['link-css'][css]+'" type="text/css" rel="stylesheet" media="all" />';
               }
 
             }
 
             if(JSON.parse(body).html['inline-css']){
               for(var css in JSON.parse(body).html['inline-css']){
-                document.getElementsByTagName('head')[0].innerHTML = document.getElementsByTagName('head')[0].innerHTML + '<style type="text/css">'+JSON.parse(body).html['inline-css'][css]+'</style>'
+                _head += '<style type="text/css">'+JSON.parse(body).html['inline-css'][css]+'</style>'
               }
             }
 
+            _head += '<style type="text/css">.bordered-active-el{border: 5px solid #1565C0 !important;}</style>';
+
+            //document.getElementById('main').innerHTML = el.innerHTML;
+            var doc = document.getElementById('website-container-iframe-vue').contentWindow.document;
+            doc.open();
+            doc.write(_head+'<body class="'+JSON.parse(body).html.bodyClasses+'">'+el.innerHTML+'</body>');
+            doc.close();
+
+            setTimeout(function(){
+
+              var iframe = document.getElementById('website-container-iframe-vue');
+              var AllElements = iframe.contentWindow.document.querySelector('body').getElementsByTagName('*');
+        
+              for(var i = 0 ; i < AllElements.length ; i++){
+             
+                AllElements[i].addEventListener("mouseenter", function(e){
+                    var elems = iframe.contentWindow.document.querySelector('body').getElementsByTagName('*');
+
+                    [].forEach.call(elems, function(el) {
+                        el.classList.remove("bordered-active-el");
+                    });
+
+                    e.target.classList.add('bordered-active-el');
+                }, false);
+
+                AllElements[i].addEventListener("mouseleave", function(e){
+                  e.target.classList.remove('bordered-active-el');
+                }, false);
+
+              }
+            },1000);
+
+
+          } else{
+             console.log('There was an error, but at least browser-request loaded and ran!')
+              throw er 
           }
 
-          console.log('There was an error, but at least browser-request loaded and ran!')
-          throw er
+
         })
 
       },
       mounted(){
-
       },
       methods: {
         showPreview(){

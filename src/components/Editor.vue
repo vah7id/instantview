@@ -147,7 +147,6 @@
             doc.close();
 
             setTimeout(function(){
-              console.log('sag')
               self.setEvents();
             },1000);
 
@@ -265,7 +264,7 @@
                     }
 
                   if(type_item == 'image_url')
-                    this.rules += '//img/@src';
+                    this.rules += '/@src';
 
                 } while(!title_confirm)
 

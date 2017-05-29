@@ -7,12 +7,10 @@
 
       <section class="form-container">
         <h1>Enter a URL to start create template</h1>
-        <form class="form-url" method="post">
-          <div class="form-url-control">
-            <input type="text" name="url" placeholder="http://example.com/single-article" value="">
-            <button type="submit" value="Start">Start</button>
-          </div>
-        </form>
+        <div class="form-url-control">
+          <input type="text" name="url" id="url-value" placeholder="http://example.com/single-article" value="">
+          <button v-on:click="start" value="Start">Start</button>
+        </div>
       </section> <!-- End form-container -->
 
     </div> <!-- container -->
@@ -31,7 +29,7 @@
     font-family: 'Lato', sans-serif;
     letter-spacing: 1px;  
   }
-  body>div, body>div>div{
+  body>div, body>div>div, body>div>div>div{
     height : 100%;
   }
   ul{
@@ -129,7 +127,9 @@
         
       },
       methods: {
-
+        start(){
+          window.location.assign('#/editor?url='+document.getElementById('url-value').value);
+        }
       }
   }
 

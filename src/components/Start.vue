@@ -5,11 +5,11 @@
         <img src="src/assets/img/instant.jpeg">
       </section> <!-- End cover-container -->
 
-      <section class="form-container">
-        <h1>Enter a URL to start create template</h1>
+      <section class="form-container form-url">
+        <h1>Enter your sample article url to instant view ready your website links.</h1>
         <div class="form-url-control">
-          <input type="text" name="url" id="url-value" placeholder="http://example.com/single-article" value="">
-          <button v-on:click="start" value="Start">Start</button>
+          <input type="text" name="url" id="url-value" placeholder="http://example.com/single-article/:title" value="">
+          <button v-on:click="start" value="Start">DO MAGIC</button>
         </div>
       </section> <!-- End form-container -->
 
@@ -94,15 +94,21 @@
     margin: 0 0 40px 0;
   }
   .form-url{
+    width: 100%;
+    max-width: 700px !important;
+  }
+  .form-url h1{
+    max-width: 500px;
+    margin: 0 auto 40px auto;
   }
   .form-url input{
-    width : 100%;
+    width: 100%;
   }
   .form-url-control{
     position: relative;
   }
   .form-url button{
-    width: 100px;
+    width: 150px;
     position: absolute;
     top: 0;
     right: 0;

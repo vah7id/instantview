@@ -170,13 +170,14 @@
           
           if(this.designMode == 'select-format'){
 
-              var type = e.target.getAttribute('id');
+              var type;
 
               if(e.target.nodeName=='I' || e.target.nodeName=="SPAN"){
                 type = e.target.parentNode.getAttribute('id');
                 e.target.parentNode.classList.add('done')
               } else{
                 e.target.classList.add('done')
+                type =  e.target.getAttribute('id');
               }
 
               type = type.split('indicator-')[1];
@@ -213,13 +214,13 @@
 
           var self = this;
 
-          var iframe = document.getElementById('website-container-iframe-vue').contentWindow.document;
+          var iframe = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
 
           if(!this.types['title'] || !this.types['body']){
             alert('title and body is required');
             return false;
           }
-
+     
           for(var type_item in this.types){
              
               var title_confirm = false;
@@ -227,7 +228,8 @@
                 this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@id="'+this.types[type_item].getAttribute('id')+'"]'+'\n';
                 title_confirm = true;
               } else{
-                if(this.types[type_item].classList != null){
+
+                if(this.types[type_item].classList != null && this.types[type_item].classList != ''){
                   if( iframe.querySelectorAll( this.classMaker(this.types[type_item].classList) ).length == 1 ){
                       this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@class="'+this.types[type_item].classList+'"]'+'\n';
                     title_confirm = true;
@@ -238,7 +240,7 @@
 
               if(!title_confirm){
 
-                  var title_parent = this.types[type_item];
+                var title_parent = this.types[type_item];
 
                 do{
                   title_parent = title_parent.parentNode;
@@ -249,8 +251,8 @@
 
                   } else{
 
-                    if(title_parent.classList != null){
-                      if( iframe.querySelectorAll( this.classMaker(title_parent.classList) ).length == 1 ){
+                    if(title_parent.classList != null && title_parent.classList != ''){
+                      if( .length == 1 ){
                         this.rules += type_item+': //'+title_parent.nodeName.toLowerCase()+'[@class="'+title_parent.classList+'"]//'+this.types[type_item].nodeName.toLowerCase()+'\n';
                         title_confirm = true;
                       }

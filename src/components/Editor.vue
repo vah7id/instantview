@@ -114,8 +114,8 @@
           if(!er){
 
             var el = document.createElement( 'div' );
-            el.innerHTML = JSON.parse(body).html.body;
 
+            el.innerHTML = JSON.parse(body).html.body;
 
             var _base_url = 'http://'+domain, _head = '';
 
@@ -138,7 +138,7 @@
               }
             }
 
-            _head += '<style type="text/css">.bordered-active-el{border: 5px solid #1565C0 !important;}.label-type{background-color: red;position: absolute;padding: 15px;border:2px solid #000;z-index: 10002;}</style>';
+            _head += '<style type="text/css">.remove-selected{float: left;width: 26px;margin-right: 20px;text-align: center;line-height: 25px;background-color: rgba(0, 0, 0, .1);text-transform: lowercase;font-size: 16px;}.bordered-selected-el{border:1px solid #1ca5e8;} .bordered-active-el{box-shadow: 0px 0px 15px rgba(30, 152, 212, 0.6) !important;border:1px solid #1ca5e8;box-sizing: border-box; !important}.label-type{background-color: rgba(30, 152, 212, 0.9); color : #FFF; padding-right:20px; position: absolute;z-index: 10002;    font-family: sans-serif;text-transform: uppercase;font-size: 12px;letter-spacing: 2px;}</style>';
 
             //document.getElementById('main').innerHTML = el.innerHTML;
             var doc = document.getElementById('website-container-iframe-vue').contentWindow.document;
@@ -181,24 +181,41 @@
 
               type = type.split('indicator-')[1];
 
+              this.current_selected.classList.add('bordered-selected-el');
+              this.current_selected.setAttribute('id','bordered-selected-'+type);
+
               this.types[type] = this.current_selected;
               var tmp = document.createElement('DIV');
               tmp.classList.add('label-type-'+type);
               tmp.classList.add('label-type');
 
-              tmp.innerHTML = type;
-              tmp.style.left = this.cumulativeOffset(e.target).left+100+'px';
-              tmp.style.top  = this.cumulativeOffset(e.target).top-100+'px';
+              tmp.innerHTML = '<span class="remove-selected">X</span>'+type;
+              tmp.style.left = this.cumulativeOffset(this.current_selected).left + 'px';
+              tmp.style.top  = this.cumulativeOffset(this.current_selected).top - 26 + 'px';
 
               var iframe_content = document.querySelector('#website-container-iframe-vue').contentWindow.document.querySelector('body').innerHTML;
 
-              document.querySelector('#website-container-iframe-vue').contentWindow.document.querySelector('body').innerHTML = iframe_content+tmp.outerHTML;
+              var iframe_tmp = document.querySelector('#website-container-iframe-vue').contentWindow.document.querySelector('body')
+
+              var self = this;
+              iframe_tmp.innerHTML = iframe_content+tmp.outerHTML;
+              iframe_tmp.querySelector('.label-type-'+type +' .remove-selected').addEventListener('click',function(){self.removeLabel(type)},false);
+
+
 
               this.setEvents();
               this.designMode = '';
 
             }
 
+        },
+
+        removeLabel(type){
+          var iframe_tmp = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
+         
+          document.getElementById('website-container-iframe-vue').contentWindow.document.getElementById('bordered-selected-' + type).classList.remove('bordered-selected-el');
+          iframe_tmp.querySelector('.label-type-'+ type).remove();
+          this.designMode = '';
         },
 
         exitSelectMode(){
@@ -305,7 +322,6 @@
             for(var i = 0 ; i < AllElements.length ; i++){
            
               AllElements[i].addEventListener("mouseenter", function(e){
-                console.log('inja')
                   var elems = iframe.contentWindow.document.querySelector('body').getElementsByTagName('*');
 
                   [].forEach.call(elems, function(el) {
@@ -323,7 +339,9 @@
                 if(e.target.nodeName == 'A')
                   e.preventDefault();
 
-                self.designMode = 'select-format';
+                if(!e.target.classList.contains('bordered-selected-el') && !e.target.classList.contains('label-type'))
+                  self.designMode = 'select-format';
+
                 self.current_selected = e.target;
 
               }, false);

@@ -5,7 +5,7 @@ var fetch = require('node-fetch');
 module.exports = function(links) {
   
   links.getHTML = function(url,cb) {
-
+    url = encodeURI(url);
    fetch(url,{ headers: { 'User-Agent': 'Web/2.0'} }).then(function(res) {
         return res.text();
     }).then(function(body) {

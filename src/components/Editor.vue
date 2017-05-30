@@ -215,6 +215,8 @@
          
           document.getElementById('website-container-iframe-vue').contentWindow.document.getElementById('bordered-selected-' + type).classList.remove('bordered-selected-el');
           iframe_tmp.querySelector('.label-type-'+ type).remove();
+          document.getElementById('indicator-' + type).classList.remove('done');
+
           this.designMode = '';
         },
 
@@ -339,7 +341,7 @@
                 if(e.target.nodeName == 'A')
                   e.preventDefault();
 
-                if(!e.target.classList.contains('bordered-selected-el') && !e.target.classList.contains('label-type'))
+                if(!e.target.classList.contains('bordered-selected-el') && !e.target.classList.contains('label-type') && !e.target.classList.contains('remove-selected'))
                   self.designMode = 'select-format';
 
                 self.current_selected = e.target;

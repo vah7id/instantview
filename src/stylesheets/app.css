@@ -558,9 +558,75 @@
     width: 100% !important;
     height: auto !important;
   }  
+  .middle-links{
+    margin-top: 200px;
+  }
+  .middle-links > ul > li{
+    margin: 0 10px;
+    display: inline-block;
+  }
+  .middle-links > ul > li > a{
+    text-decoration: none;
+    color: #1ca5e8;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .middle-links > ul > li > a:hover{
+    color: #2088bb;
+  }
+
+  /*--- Loading Spinner ---*/
+
+  .spinner {
+    position: absolute;
+    margin: 100px auto 0;
+    width: 70px;
+    left: calc(50% - 35px);
+    text-align: center;
+    z-index: 2;
+  }
+
+  .spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: #1e98d4;
+
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  .spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+
+  .spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+
+  @-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+  }
+
+  @keyframes sk-bouncedelay {
+    0%, 80%, 100% { 
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 40% { 
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+    }
+  }
+
 
 
   #website-container-iframe-vue{
+    position: relative;
+    z-index: 5;
     width: 100% !important;
     height: 100% !important;
     border:none !important;

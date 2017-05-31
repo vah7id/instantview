@@ -11,6 +11,13 @@
           <input type="text" name="url" id="url-value" placeholder="http://example.com/single-article/:title" value="">
           <button v-on:click="start" value="Start">DO MAGIC</button>
         </div>
+        <div class="middle-links">
+          <ul>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Manual</a></li>
+            <li><a href="https://telegram.org/blog/instant-view">What is Instant View?</a></li>
+          </ul>
+        </div>
       </section> <!-- End form-container -->
 
     </div> <!-- container -->

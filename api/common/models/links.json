@@ -16,18 +16,22 @@
       "type": "string",
       "required": true
     },
+    "telegram_id": {
+      "type": "string"
+    },
     "url": {
       "type": "string",
       "required": true
     },
-    "tags": {
-      "type": "Object"
+    "created_at":{
+      "type":"string"
     },
     "template": {
-      "type": "Object"
+      "type": "string"
     },
     "submited":{
-      "type": "Boolean"
+      "type": "Boolean",
+      "default": false
     }
   },
   "validations": [],

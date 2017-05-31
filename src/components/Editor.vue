@@ -173,14 +173,13 @@
               var type;
 
               if(e.target.nodeName=='I' || e.target.nodeName=="SPAN"){
-                type = e.target.parentNode.getAttribute('id');
-                e.target.parentNode.classList.add('done')
+                type = e.target.closest("li").getAttribute('id');
+                e.target.closest("li").classList.add('done')
               } else{
                 e.target.classList.add('done')
                 type =  e.target.getAttribute('id');
               }
 
-              console.log(type)
               type = type.split('indicator-')[1];
 
               this.current_selected.classList.add('bordered-selected-el');

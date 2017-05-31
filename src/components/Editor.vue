@@ -396,6 +396,25 @@
 
           }
 
+          //add meta data
+
+          this.rules += 'title: //meta[@name="title"]/@content'+' \n';
+          this.rules += 'title: //meta[@property="og:title"]/@content'+' \n';
+          this.rules += 'title: //meta[@itemprop="name"]/@content'+' \n';
+
+          this.rules += 'description: //meta[@name="description"]/@content'+' \n';
+          this.rules += 'description: //meta[@property="og:description"]/@content'+' \n';
+          this.rules += 'description: //meta[@itemprop="description"]/@content'+' \n';
+
+          this.rules += 'body: //meta[@name="description"]/@content'+' \n';
+
+          this.rules += 'cover: //meta[@property="og:image"]/@content'+' \n';
+          this.rules += 'cover: //meta[@itemprop="image"]/@content'+' \n';
+
+          this.rules += 'author: //meta[@property="article:author"]/@content'+' \n';
+          this.rules += 'published_date: //meta[@property="article:published_time"]/@content'+' \n';
+
+
           request( {url: window.api_url+'links',method:'POST',
             json:{
                 'domain':this.url.split('http://')[1].split('/')[0],

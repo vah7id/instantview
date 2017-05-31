@@ -558,6 +558,22 @@
     width: 100% !important;
     height: auto !important;
   }  
+  .middle-links{
+    margin-top: 200px;
+  }
+  .middle-links > ul > li{
+    margin: 0 10px;
+    display: inline-block;
+  }
+  .middle-links > ul > li > a{
+    text-decoration: none;
+    color: #1ca5e8;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .middle-links > ul > li > a:hover{
+    color: #2088bb;
+  }
 
   /*--- Loading Spinner ---*/
 

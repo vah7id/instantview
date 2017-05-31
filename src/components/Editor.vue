@@ -105,7 +105,7 @@
 
       },
       created() {
-        console.log('inja')
+        console.log(decodeURIComponent(window.location.href.split('?url=')[1]))
         this.url = decodeURIComponent(window.location.href.split('?url=')[1]);
         var self = this;
         var domain = this.url.split('http://')[1].split('/')[0];
@@ -232,6 +232,8 @@
           //this.rules += '?exist: $body \n';
           //title
 
+          document.querySelector('.submit-template').innerHTML = 'PUBLISHING...';
+
           if( document.querySelector('input[name="channelName"]').value != '' ){
             this.rules += 'chanel:'+document.querySelector('input[name="channelName"]').value+'\n';
           }
@@ -241,8 +243,8 @@
           var iframe = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
 
           if(!this.types['title'] || !this.types['body']){
-            alert('title and body is required');
-            return false;
+            //alert('title and body is required');
+            //return false;
           }
      
           for(var type_item in this.types){
@@ -375,7 +377,7 @@
                     }
 
                     title_confirm = true;
-                    console.log(title_parent)
+                    alert('Please try again to select correct element.');
                     console.log('bara '+type_item+' chizi peyda nashod !!!!');
                   }
 
@@ -393,9 +395,21 @@
                   this.rules = this.rules.replace(' bordered-active-el','');
               }
 
-              console.log(this.rules)
-
           }
+
+          request( {url: window.api_url+'links',method:'POST',
+            json:{
+                'domain':this.url.split('http://')[1].split('/')[0],
+                'url': this.url,
+                'template' : this.rules,
+                'created_at': new Date()
+              }
+            },function(er, response, body) {
+              if(!er){
+                document.querySelector('.submit-template').innerHTML = 'PUBLISH';
+                window.location.assign('#/publish?id='+body.id);
+              }
+          });
 
         },
 

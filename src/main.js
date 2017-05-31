@@ -6,6 +6,7 @@ import store from './store';
 import StartView from './components/Start.vue'
 import EditorView from './components/Editor.vue'
 import PublishView from './components/Publish.vue'
+import PanelView from './components/Panel.vue'
 
 import App from './components/App.vue'
 
@@ -15,14 +16,13 @@ const api_port = '8000',
 
 window.api_url = api_url;
 
-// i
-
 var _routes = {
   routes: [
     { path: '', component: StartView, name: 'Instant View Telegram Generator' },
     { path: '/start', component: StartView, name: 'Instant View Telegram Generator' },
     { path: '/editor', component: EditorView, name: 'Editor Instant View Maker' },
-    { path: '/publish', component: PublishView, name: 'Publish your instant view' }
+    { path: '/publish', component: PublishView, name: 'Publish your instant view' },
+    { path: '/karim', component: PanelView, name: 'Instant View Telegram Generator' }
   ]
 };
 

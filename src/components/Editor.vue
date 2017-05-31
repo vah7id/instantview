@@ -169,7 +169,7 @@
         }
       },
       created() {
-        console.log('inja')
+        console.log(decodeURIComponent(window.location.href.split('?url=')[1]))
         this.url = decodeURIComponent(window.location.href.split('?url=')[1]);
         var self = this;
         var domain = this.url.split('http://')[1].split('/')[0];
@@ -248,14 +248,13 @@
               var type;
 
               if(e.target.nodeName=='I' || e.target.nodeName=="SPAN"){
-                type = e.target.parentNode.getAttribute('id');
-                e.target.parentNode.classList.add('done')
+                type = e.target.closest("li").getAttribute('id');
+                e.target.closest("li").classList.add('done')
               } else{
                 e.target.classList.add('done')
                 type =  e.target.getAttribute('id');
               }
 
-              console.log(type)
               type = type.split('indicator-')[1];
 
               this.current_selected.classList.add('bordered-selected-el');
@@ -314,8 +313,14 @@
         publish(){
           this.rules = '';
           this.rules = '$body://body \n';
-          this.rules += '?exist: $body \n';
+          //this.rules += '?exist: $body \n';
           //title
+
+          document.querySelector('.submit-template').innerHTML = 'PUBLISHING...';
+
+          if( document.querySelector('input[name="channelName"]').value != '' ){
+            this.rules += 'chanel:'+document.querySelector('input[name="channelName"]').value+'\n';
+          }
 
           var self = this;
 
@@ -334,19 +339,39 @@
                 this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@id="'+this.types[type_item].getAttribute('id')+'"]'+'\n';
                 title_confirm = true;
               } else{
-
+*/
                 if(this.types[type_item].classList != null && this.types[type_item].classList != ''){
                   if( iframe.querySelectorAll( this.classMaker(this.types[type_item].classList) ).length == 1 ){
-                      this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@class="'+this.types[type_item].classList+'"]'+'\n';
-                    title_confirm = true;
-                  }
+                      this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@class="'+this.types[type_item].classList+'"]';
+
+                        if(type_item == 'image_url')
+                          this.rules += '/@src';
+
+                        if(type_item == 'published_date')
+                          this.rules +='/@datetime'
+
+                        this.rules += '\n';
+                        title_confirm = true;
+
+                      }
                 }
-              }*/
+             // }
 
               if( iframe.querySelectorAll(this.types[type_item].nodeName).length == 1 ){
-                  this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'\n';
+                  this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase();
+
+                  if(type_item == 'image_url')
+                    this.rules += '/@src';
+
+                  if(type_item == 'published_date')
+                    this.rules +='/@datetime'
+
+                  this.rules += '\n';
                   title_confirm = true;
+
               }
+
+              
 
               var self = this;
 
@@ -356,61 +381,138 @@
                 var parents = [];
 
                 do{
-                  console.log(title_parent)
-                  console.log(self.types[type_item])
 
-                  if(title_parent != null){
-
+                  if(title_parent.parentNode != null){
 
                       title_parent = title_parent.parentNode;
                       parents.push(title_parent);
-                      
-                      if(title_parent.nodeName == 'BODY'){
-                        
-                        if(title_parent.getAttribute('id') != null){
-                            this.rules += type_item+': //'+title_parent.nodeName.toLowerCase()+'[@id="'+title_parent.getAttribute('id')+'"]//'+this.types[type_item].nodeName.toLowerCase()+'\n';
-                            title_confirm = true;
-
-                          } else{
-
-                            if(title_parent.classList != null && title_parent.classList != ''){
-                              if( iframe.querySelectorAll( this.classMaker(title_parent.classList) ).length == 1 ){
-                                this.rules += type_item+': //'+title_parent.nodeName.toLowerCase()+'[@class="'+title_parent.classList+'"]//'+this.types[type_item].nodeName.toLowerCase()+'\n';
-                                title_confirm = true;
-                              }
-                            }
-
-                          }
-                      }
-
 
                       var tag_names = '',tag_rules = '';
 
                       parents.reverse().forEach(function(parent){
                         if(parent != null){
-                          tag_names += parent.nodeName + ' ';
-                          tag_rules += parent.nodeName + '//';
+                         
+                          if(parent.classList != null && parent.classList != ''){
+                            tag_rules += parent.nodeName.toLowerCase() + '[@class="'+ parent.classList +'"]' + '//';
+                            console.log(parent.classList)
+                            tag_names += parent.nodeName.toLowerCase()+self.classMaker(parent.classList) + ' ';
+                          }
+                          else{
+                            tag_rules += parent.nodeName.toLowerCase() + '//';
+                            tag_names += parent.nodeName.toLowerCase() + ' ';
+                          }
+
                         }
                       });
 
-
                       if( iframe.querySelectorAll(tag_names+this.types[type_item].nodeName).length == 1 ){
-                          this.rules += type_item+': //'+tag_rules+this.types[type_item].nodeName.toLowerCase()+'\n';
-                          title_confirm = true;
+                          this.rules += type_item+': //'+tag_rules+this.types[type_item].nodeName.toLowerCase();
+                           if(type_item == 'image_url')
+                              this.rules += '/@src';
+
+                            if(type_item == 'published_date')
+                              this.rules +='/@datetime'
+
+                            this.rules += '\n';
+                            title_confirm = true;
                       }
 
-                      if(type_item == 'image_url')
-                        this.rules += '/@src';
+
 
                   }  else{
                    // title_confirm = true;
-                    continue;
+                   // title_parent = self.types[type_item];
+                    for(var i = 0 ; i<parents.length ; i++){
+                      title_parent = parents.reverse()[i];
+
+                      var tag_names = '',tag_rules = '';
+                      for(var j = 0 ; j<i ; j++){
+                        if(parent != null){
+                          tag_names += parents.reverse()[j].nodeName.toLowerCase() + ' ';
+
+                          tag_rules += parents.reverse()[j].nodeName.toLowerCase() + '//';
+                        }
+                      }
+
+                      /*if(title_parent.getAttribute('id') != null){
+                        this.rules += type_item+': //'+title_parent.nodeName.toLowerCase()+'[@id="'+title_parent.getAttribute('id')+'"]//'+tag_rules+this.types[type_item].nodeName.toLowerCase()+'\n';
+                        title_confirm = true;
+                        break;
+
+                      } else{
+                      */
+                        if(title_parent.classList != null && title_parent.classList != ''){
+                          if( iframe.querySelectorAll( this.classMaker(title_parent.classList) ).length == 1 ){
+                            this.rules += type_item+': //'+title_parent.nodeName.toLowerCase()+'[@class="'+title_parent.classList+'"]//'+tag_rules+this.types[type_item].nodeName.toLowerCase();
+                             if(type_item == 'image_url')
+                              this.rules += '/@src';
+
+                            if(type_item == 'published_date')
+                              this.rules +='/@datetime'
+
+                            this.rules += '\n';
+                            title_confirm = true;
+
+                            break;
+                          }
+                        }
+                     // }
+                      
+                    }
+
+                    title_confirm = true;
+                    alert('Please try again to select correct element.');
+                    console.log('bara '+type_item+' chizi peyda nashod !!!!');
                   }
 
                 } while(!title_confirm)
 
               }
+
+              if(this.rules.indexOf('bordered-selected-el')>-1){
+                for(var m = 0 ; m<this.rules.split(' bordered-selected-el').length ; m++)
+                  this.rules = this.rules.replace(' bordered-selected-el','');
+              }
+
+              if(this.rules.indexOf('bordered-active-el')>-1){
+                for(var m = 0 ; m<this.rules.split(' bordered-active-el').length ; m++)
+                  this.rules = this.rules.replace(' bordered-active-el','');
+              }
+
           }
+
+          //add meta data
+
+          this.rules += 'title: //meta[@name="title"]/@content'+' \n';
+          this.rules += 'title: //meta[@property="og:title"]/@content'+' \n';
+          this.rules += 'title: //meta[@itemprop="name"]/@content'+' \n';
+
+          this.rules += 'description: //meta[@name="description"]/@content'+' \n';
+          this.rules += 'description: //meta[@property="og:description"]/@content'+' \n';
+          this.rules += 'description: //meta[@itemprop="description"]/@content'+' \n';
+
+          this.rules += 'body: //meta[@name="description"]/@content'+' \n';
+
+          this.rules += 'cover: //meta[@property="og:image"]/@content'+' \n';
+          this.rules += 'cover: //meta[@itemprop="image"]/@content'+' \n';
+
+          this.rules += 'author: //meta[@property="article:author"]/@content'+' \n';
+          this.rules += 'published_date: //meta[@property="article:published_time"]/@content'+' \n';
+
+
+          request( {url: window.api_url+'links',method:'POST',
+            json:{
+                'domain':this.url.split('http://')[1].split('/')[0],
+                'url': this.url,
+                'template' : this.rules,
+                'created_at': new Date()
+              }
+            },function(er, response, body) {
+              if(!er){
+                document.querySelector('.submit-template').innerHTML = 'PUBLISH';
+                window.location.assign('#/publish?id='+body.id);
+              }
+          });
 
         },
 

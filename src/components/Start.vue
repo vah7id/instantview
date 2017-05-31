@@ -6,7 +6,7 @@
       </section> <!-- End cover-container -->
 
       <section class="form-container form-url">
-        <h1>Enter your sample article url to instant view ready your website links.</h1>
+        <h1>Enter a sample <b>article URL</b> to <b>instant view ready</b> your website links.</h1>
         <div class="form-url-control">
           <input type="text" name="url" id="url-value" placeholder="http://example.com/single-article/:title" value="">
           <button v-on:click="start" value="Start">DO MAGIC</button>
@@ -15,106 +15,6 @@
 
     </div> <!-- container -->
 </template>
-
-<style lang="css">
-
-  /* --- GENERAL STYLES --- */
-
-  html{
-    height : 100%;
-  }
-  body{
-    margin : 0;
-    height : 100%;
-    font-family: 'Lato', sans-serif;
-    letter-spacing: 1px;  
-  }
-  body>div, body>div>div, body>div>div>div{
-    height : 100%;
-  }
-  ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  /* --- PLACHOLDER STYLES --- */
-
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #bbb;
-    font-weight: 300;
-    letter-spacing: 1px;    
-  }
-  ::-moz-placeholder { /* Firefox 19+ */
-    color: #bbb;
-    font-weight: 300;
-    letter-spacing: 1px;    
-  }
-  :-ms-input-placeholder { /* IE 10+ */
-    color: #bbb;
-    font-weight: 300;
-    letter-spacing: 1px;    
-  }
-  :-moz-placeholder { /* Firefox 18- */
-    color: #bbb;
-    font-weight: 300;
-    letter-spacing: 1px;    
-  }  
-
-  /* --- OVERRIDE STYLES --- */
-
-  h1{
-    font-weight: 300;
-  }
-
-
-  /* --- LAYOUT STYLES --- */
-
-  .container{
-    width: 1170px;
-    margin: 0 auto;
-  }
-
-  /* --- INDEX STYLES --- */
-
-  .cover-container{
-    text-align: center;
-  }
-  .cover-container > img{
-    width: 400px;
-    padding: 40px 0 40px 0;    
-  }
-  .form-container{
-    width: 60%;
-    margin : 0 auto;
-    text-align: center;
-    margin-bottom: 100px;    
-  }
-  .form-container h1{
-    margin: 0 0 40px 0;
-  }
-  .form-url{
-    width: 100%;
-    max-width: 700px !important;
-  }
-  .form-url h1{
-    max-width: 500px;
-    margin: 0 auto 40px auto;
-  }
-  .form-url input{
-    width: 100%;
-  }
-  .form-url-control{
-    position: relative;
-  }
-  .form-url button{
-    width: 150px;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-</style>
 
 <script type="text/javascript">
 

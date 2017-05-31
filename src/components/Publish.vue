@@ -1,14 +1,26 @@
 <template>
   <div>
-  
-  publish
+    <div class="container">
 
+      <section class="cover-container half-size">
+        <img src="src/assets/img/publish.gif">
+      </section> <!-- End cover-container -->
+
+      <section class="form-container form-publish">
+        <h1><b>Thank You!</b> We'll send the template to Telegram Team.</h1>
+        <h4>For more updates please <b>enter your Telegram username</b> below.</h4>
+        <div class="form-publish-control">
+          <input type="text" name="telegramUsernme" id="telegramUsernameValue" placeholder="@username" value="">
+          <button v-on:click="saveTelegramUsername" value="Save">LET ME KNOW</button>
+        </div>
+
+          
+      </section> <!-- End form-container -->
+
+    </div> <!-- container -->    
+  
   </div>
 </template>
-
-<style lang="css">
-
-</style>
 
 <script type="text/javascript">
 

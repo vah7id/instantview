@@ -1,3 +1,128 @@
+  
+  /* --- GENERAL STYLES --- */
+
+  html{
+    height : 100%;
+  }
+  body{
+    margin : 0;
+    height : 100%;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;  
+  }
+  body>div, body>div>div, body>div>div>div{
+    height : 100%;
+  }
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* --- PLACHOLDER STYLES --- */
+
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #bbb;
+    font-weight: 300;
+    letter-spacing: 1px;    
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: #bbb;
+    font-weight: 300;
+    letter-spacing: 1px;    
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: #bbb;
+    font-weight: 300;
+    letter-spacing: 1px;    
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: #bbb;
+    font-weight: 300;
+    letter-spacing: 1px;    
+  }  
+
+  /* --- OVERRIDE STYLES --- */
+
+  h1, h2, h3, h4,h5 , h6{
+    font-weight: 300;
+  }
+
+
+  /* --- LAYOUT STYLES --- */
+
+  .container{
+    width: 1170px;
+    margin: 0 auto;
+  }
+
+  /* --- INDEX STYLES --- */
+
+  .cover-container{
+    text-align: center;
+  }
+  .cover-container > img{
+    width: 400px;
+    padding: 40px 0 40px 0;    
+  }
+  .cover-container.half-size > img{
+    width: 200px;
+  }
+  .form-container{
+    width: 60%;
+    margin : 0 auto;
+    text-align: center;
+    margin-bottom: 100px;    
+  }
+  .form-container h1{
+    margin: 0 0 40px 0;
+  }
+  .form-container h4{
+    margin: 0 0 40px 0;
+  }
+  .form-url{
+    width: 100%;
+    max-width: 700px !important;
+  }
+  .form-url h1{
+    font-size: 22px;
+    margin: 0 auto 40px auto;
+  }
+  .form-publish h4{
+    margin: 0px auto 30px auto;    
+  }
+  .form-publish h1{
+    font-size: 22px;
+    margin: 0px auto 50px auto;    
+  }
+
+  .form-url input{
+    width: 100%;
+  }
+  .form-publish input{
+    width: 100%;
+  }
+  .form-url-control{
+    position: relative;
+  }
+  .form-publish-control{
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .form-url button{
+    width: 150px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .form-publish button{
+    width: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
   html,body{
     height:100%;
     width: 100%;
@@ -267,7 +392,174 @@
     display: block;
     color: #1e98d4;
   }
-  
+  .modal-page-container{
+    background-color: rgba(0, 0, 0, .8);
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 1010;
+    display: none;
+  }
+  .modal-mode .modal-page-container{
+    display: block;
+  }
+  .close-modal-page{
+    float: right;
+    cursor: pointer;
+  }
+  .close-modal-page > i{
+    font-size: 33px;
+    padding: 10px;
+    color: #AAA;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .close-modal-page > i:hover{
+    color: #FFF;
+  }
+  .modal-container{
+    width: 40%;
+    height: 100%;
+    margin:0 auto;
+    margin-top: 60px;        
+  }
+  .modal-window{
+    margin-top: 200px;
+    background-color: #FFF;
+    border-radius: 10px;    
+  }
+  .modal-header{
+    text-align: center;
+  }
+  .modal-header > h4{
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #1ca5e8;
+    padding-top: 20px;
+  }
+  .modal-body{
+    text-align: center;
+    padding: 20px;
+  }
+  .modal-body > p{
+    color: #323232;
+  }
+  .modal-footer{
+    text-align: right;
+    padding-bottom: 20px;
+  }
+  .modal-footer > a{
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 0 20px;
+    color: #1ca5e8;
+    cursor: pointer;
+  }
+
+  .preview-page-container{
+    background-color: #f2f2f2;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 1000;
+    display: none;
+  }
+  .preview-mode .preview-page-container{
+    display: block;
+  }
+
+  .close-preview-page{
+    float: right;
+    cursor: pointer;
+  }
+  .close-preview-page > i{
+    font-size: 33px;
+    padding: 10px;
+    color: #bdbdbd;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .close-preview-page > i:hover{
+    color: #999999;
+  }
+  .page-title{
+    float: left;
+  }
+  .page-title > h3{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 300;
+    margin: 10px;
+    padding-left: 10px;
+  }
+  .preview-container{
+    width: 30%;
+    height: 100%;
+    margin:0 auto;
+    margin-top: 60px;
+  }
+  .preview-frame{
+    height: calc(100% - 120px);
+    border: 2px solid #5bc0de;
+    background-color: #FFF;
+    overflow: scroll;
+    font-family: serif;
+    padding: 0 20px;
+  }
+  .preview-frame article{
+  }
+  .preview-frame article figure{
+    margin: 0;
+    padding: 0;
+    width: 100%;    
+  }
+  .preview-frame article figure img{
+    width: calc(100% + 40px);
+    margin-left: -20px;
+  }
+  .preview-frame h1{
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+  .preview-frame h5{
+    font-weight: bold;
+    color: #777;
+    letter-spacing: 0;
+  }
+  .preview-frame address{
+    color: #999;
+    letter-spacing: 0;
+    margin-bottom: 20px;
+  }
+  .preview-frame p{
+    line-height: 22px;
+    letter-spacing: 0;
+  }
+  .preview-frame a{
+    text-decoration: none;
+    color: #5bc0de;
+    letter-spacing: 0;
+  }
+  .placeholder-img{
+    width: calc(100% + 40px);
+    height: 200px;
+    background-color: #e2e2e2;
+    margin-left: -20px;
+    color: #b9b9b9;
+    text-align: center;
+    line-height: 200px;
+    font-size: 30px;
+  }
+  .placeholder-color{
+    color: #aaaaaa !important;
+  }
+  .preview-article-body{
+  }
+  .preview-article-body img{
+    width: 100% !important;
+    height: auto !important;
+  }  
+
+
   #website-container-iframe-vue{
     width: 100% !important;
     height: 100% !important;

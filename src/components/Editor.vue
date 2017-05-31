@@ -63,14 +63,66 @@
               <hr>
             </div>
             <ul>
-              <li><button v-on:click="showPreview" class="medium show-preview">SHOW PREVIEW</button></li>
+              <li><button v-on:click="showPreview" class="medium show-preview">PREVIEW</button></li>
               <li><button class="medium line submit-template" v-on:click="publish">PUBLISH</button></li>
             </ul>
           </div>
         </div>
       </aside>
-      <div class="message-area">
-        
+      <div class="preview-page-container">
+        <span class="close-preview-page"><i v-on:click="closePreview" class="material-icons">close</i></span>
+        <span class="page-title">
+          <h3>Preview</h3>
+        </span>
+        <div class="preview-container">
+          <div class="preview-frame">
+            <article>
+
+              <figure data-block="Cover" v-if="preview_data['cover']">
+                <img v-bind:src="preview_data['cover']">
+              </figure>
+              <figure data-block="Cover" v-if="analyseSelected('cover')">
+                <div class="placeholder-img">Cover not selected</div>
+              </figure>
+
+              <h1 data-block="Title" v-if="preview_data['title']">{{ preview_data['title'] }}</h1>
+              <h1 data-block="Title" class="placeholder-color" v-if="analyseSelected('title')">Page title NOT seleceted</h1>
+
+              <h5 data-block="Subtitle" v-if="preview_data['subtitle']">{{ preview_data['subtitle'] }}</h5>
+              <h5 data-block="Subtitle" class="placeholder-color" v-if="analyseSelected('subtitle')">Page Subtitle NOT seleceted</h5>
+
+              <address data-block="Date, Author">
+                <time v-if="preview_data['published_date']">{{ preview_data['published_date'] }}</time>
+                <time class="placeholder-color" v-if="analyseSelected('published_date')">Date NOT seleceted</time>
+                by
+                <a rel="author" v-if="preview_data['author']">{{ preview_data['author'] }}</a>
+                <a rel="author" class="placeholder-color" v-if="analyseSelected('author')">Author NOT seleceted</a>
+              </address>
+              <div class="preview-article-body" v-if="preview_data['body']" v-html="preview_data['body']"></div> 
+              <div class="preview-article-body" v-if="analyseSelected('body')">
+                <p class="placeholder-color" data-block="Paragraph">Article body NOT seleceted</p>
+              </div> 
+            </article>
+          </div>
+        </div>
+        <div class="preview-actions">
+        </div>
+      </div>
+      <div v-on:click="closeModal" class="modal-page-container">
+        <span class="close-modal-page"><i v-on:click="closeModal" class="material-icons">close</i></span>
+        <div class="modal-container">
+          <div class="modal-window">
+            <div class="modal-header">
+              <h4>{{ modalTitle }}</h4>
+            </div>
+            <div class="modal-body">
+              <p>{{ modalMessage }}</p>
+            </div>
+            <div class="modal-footer">
+              <a v-on:click="closeModal">OK</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -92,17 +144,29 @@
           url: null,
           html: null,
           designMode: '',
+          modalMessage: '',
+          modalTitle: '',
           current_selected: null,
           types: [],
-          rules: null
+          rules: null,
+          preview_data: [],
+          preview_selected: []
         }
       },
       watch:{
         designMode: function(val){
           this.designMode = val;
           return val;
+        },
+        types: function(val){
+          this.types = val;
+          this.getPreviewData();
+        },
+        preview_data: function(val){
+          console.log('change')
+          this.preview_data = val;
+          return val;
         }
-
       },
       created() {
         console.log('inja')
@@ -138,7 +202,7 @@
               }
             }
 
-            _head += '<style type="text/css">.remove-selected{float: left;width: 26px;margin-right: 20px;text-align: center;line-height: 25px;background-color: rgba(0, 0, 0, .1);text-transform: lowercase;font-size: 16px;}.bordered-selected-el{border:1px solid #1ca5e8;} .bordered-active-el{box-shadow: 0px 0px 15px rgba(30, 152, 212, 0.6) !important;border:1px solid #1ca5e8;box-sizing: border-box; !important}.label-type{background-color: rgba(30, 152, 212, 0.9); color : #FFF; padding-right:20px; position: absolute;z-index: 10002;    font-family: sans-serif;text-transform: uppercase;font-size: 12px;letter-spacing: 2px;}</style>';
+            _head += '<style type="text/css">.bordered-selected-el{border:1px solid #1ca5e8;} .bordered-active-el{box-shadow: 0px 0px 15px rgba(30, 152, 212, 0.6) !important;border:1px solid #1ca5e8;box-sizing: border-box; !important}.label-type{background-color: rgba(30, 152, 212, 0.9); color : #FFF; padding-right:20px; position: absolute;z-index: 10002;font-family: sans-serif;text-transform: uppercase;font-size: 12px;letter-spacing: 2px;box-shadow: none !important; border: none !important;line-height: 26px;} .remove-selected{float: left;width: 26px;margin-right: 20px;text-align: center;line-height: 25px;background-color: rgba(0, 0, 0, .1);text-transform: lowercase;font-size: 16px; box-shadow: none !important; border: none !important; cursor: pointer;}</style>';
 
             //document.getElementById('main').innerHTML = el.innerHTML;
             var doc = document.getElementById('website-container-iframe-vue').contentWindow.document;
@@ -164,7 +228,18 @@
       },
       methods: {
         showPreview(){
-
+          this.getPreviewData();
+        },
+        showModal(title, message){
+          this.modalTitle= title;
+          this.modalMessage = message;
+          this.designMode = 'modal-mode';
+        },
+        closePreview(){
+          this.designMode = '';
+        },
+        closeModal(){
+          this.designMode = '';
         },
         selectFormat(e){
           
@@ -211,13 +286,23 @@
             }
 
         },
-
         removeLabel(type){
           var iframe_tmp = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
          
           document.getElementById('website-container-iframe-vue').contentWindow.document.getElementById('bordered-selected-' + type).classList.remove('bordered-selected-el');
           iframe_tmp.querySelector('.label-type-'+ type).remove();
           document.getElementById('indicator-' + type).classList.remove('done');
+
+          delete this.types[type];
+
+          var tmp = this.preview_data;
+          var tmp2 = this.preview_selected;
+
+          delete tmp[type];
+          this.preview_data = tmp;
+
+          delete tmp2[type];
+          this.preview_selected = tmp2;
 
           this.designMode = '';
         },
@@ -237,7 +322,7 @@
           var iframe = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
 
           if(!this.types['title'] || !this.types['body']){
-            alert('title and body is required');
+            this.showModal('required','Title and Article Body is required!');
             return false;
           }
      
@@ -325,10 +410,6 @@
                 } while(!title_confirm)
 
               }
-
-
-              console.log(this.rules)
-
           }
 
         },
@@ -396,7 +477,47 @@
           }
           
           return '.'+classes;
+        },
+        analyseSelected(type){
+
+
+          if(this.preview_data[type]){
+            return false;
+          }
+
+          else if(this.preview_selected[type]){
+            return false;
+          }
+
+          else{
+            return true;
+          }
+
+        },
+        getPreviewData(){
+
+          for (var type in this.types){
+
+            var el = this.types[type];
+
+            this.preview_selected[type] = 1;
+
+            if(type == 'published_date' )
+              this.preview_data[type] = el.getAttribute('datetime')
+
+            else if(el.nodeName == 'IMG' && type == 'cover')
+              this.preview_data[type] = el.getAttribute('src')
+
+            else if(type == 'body')
+              this.preview_data[type] = el.innerHTML;              
+
+            else 
+              this.preview_data[type] = el.textContent;
+          }
+
+          this.designMode = 'preview-mode';
         }
+
 
       }
   }

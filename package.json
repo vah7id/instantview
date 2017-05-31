@@ -52,6 +52,7 @@
     "simple-color-picker": "^0.1.2",
     "jsdom": "^1.0.0",
     "url-loader": "^0.5.7",
+    "clipboard-js": "^0.3.3",
     "vue-loader": "^10.0.0",
     "vue-style-loader": "^11.0.0",
     "vue-template-compiler": "^2.1.0",

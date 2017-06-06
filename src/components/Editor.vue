@@ -353,7 +353,7 @@
 
         publish(){
           this.rules = '';
-          this.rules = '$body://body \n';
+          //this.rules = '$body://body \n';
           //this.rules += '?exist: $body \n';
           //title
 
@@ -502,9 +502,9 @@
                     }
 
                     title_confirm = true;
-                    this.showModal('Warning ! ','Please try again to select correct element.');
+                    this.showModal('Warning ! ','Some template rules Missed because of your html content issues.');
                     document.querySelector('.submit-template').innerHTML = 'PUBLISH';
-                    return false;
+                    
                   }
 
                 } while(!title_confirm)

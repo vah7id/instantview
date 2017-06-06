@@ -14,6 +14,9 @@
           <button v-on:click="saveTelegramUsername" value="Save">LET ME KNOW</button>
           <p id="msg"></p>
         </div>
+        <div class="back-to-home">
+          <a href="#/">Create new template</a>
+        </div>
 
           
       </section> <!-- End form-container -->

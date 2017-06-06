@@ -579,6 +579,18 @@
   .middle-links > ul > li > a:hover{
     color: #2088bb;
   }
+  .back-to-home{
+    margin-top: 60px;
+  }
+  .back-to-home a{
+    text-decoration: none;
+    color: #1ca5e8;
+    -webkit-transition: all .2s; 
+    transition: all .2s;    
+  }
+  .back-to-home a:hover{
+    color: #2088bb;
+  }
 
   /*--- Loading Spinner ---*/
 

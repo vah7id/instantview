@@ -80,35 +80,44 @@
           <h3>Preview</h3>
         </span>
         <div class="preview-container">
-          <div class="preview-frame">
-            <article>
+          <div class="marvel-device nexus5">
+              <div class="top-bar"></div>
+              <div class="sleep"></div>
+              <div class="volume"></div>
+              <div class="camera"></div>
+              <div class="screen">
+                <div class="preview-frame">
+                  <article>
 
-              <figure data-block="Cover" v-if="preview_data['cover']">
-                <img v-bind:src="preview_data['cover']">
-              </figure>
-              <figure data-block="Cover" v-if="analyseSelected('cover')">
-                <div class="placeholder-img">Cover not selected</div>
-              </figure>
+                    <figure data-block="Cover" v-if="preview_data['cover']">
+                      <img v-bind:src="preview_data['cover']">
+                    </figure>
+                    <figure data-block="Cover" v-if="analyseSelected('cover')">
+                      <div class="placeholder-img">Cover not selected</div>
+                    </figure>
 
-              <h1 data-block="Title" v-if="preview_data['title']">{{ preview_data['title'] }}</h1>
-              <h1 data-block="Title" class="placeholder-color" v-if="analyseSelected('title')">Page title NOT seleceted</h1>
+                    <h1 data-block="Title" v-if="preview_data['title']">{{ preview_data['title'] }}</h1>
+                    <h1 data-block="Title" class="placeholder-color" v-if="analyseSelected('title')">Page title NOT seleceted</h1>
 
-              <h5 data-block="Subtitle" v-if="preview_data['subtitle']">{{ preview_data['subtitle'] }}</h5>
-              <h5 data-block="Subtitle" class="placeholder-color" v-if="analyseSelected('subtitle')">Page Subtitle NOT seleceted</h5>
+                    <h5 data-block="Subtitle" v-if="preview_data['subtitle']">{{ preview_data['subtitle'] }}</h5>
+                    <h5 data-block="Subtitle" class="placeholder-color" v-if="analyseSelected('subtitle')">Page Subtitle NOT seleceted</h5>
 
-              <address data-block="Date, Author">
-                <time v-if="preview_data['published_date']">{{ preview_data['published_date'] }}</time>
-                <time class="placeholder-color" v-if="analyseSelected('published_date')">Date NOT seleceted</time>
-                by
-                <a rel="author" v-if="preview_data['author']">{{ preview_data['author'] }}</a>
-                <a rel="author" class="placeholder-color" v-if="analyseSelected('author')">Author NOT seleceted</a>
-              </address>
-              <div class="preview-article-body" v-if="preview_data['body']" v-html="preview_data['body']"></div> 
-              <div class="preview-article-body" v-if="analyseSelected('body')">
-                <p class="placeholder-color" data-block="Paragraph">Article body NOT seleceted</p>
-              </div> 
-            </article>
-          </div>
+                    <address data-block="Date, Author">
+                      <time v-if="preview_data['published_date']">{{ preview_data['published_date'] }}</time>
+                      <time class="placeholder-color" v-if="analyseSelected('published_date')">Date NOT seleceted</time>
+                      by
+                      <a rel="author" v-if="preview_data['author']">{{ preview_data['author'] }}</a>
+                      <a rel="author" class="placeholder-color" v-if="analyseSelected('author')">Author NOT seleceted</a>
+                    </address>
+                    <div class="preview-article-body" v-if="preview_data['body']" v-html="preview_data['body']"></div> 
+                    <div class="preview-article-body" v-if="analyseSelected('body')">
+                      <p class="placeholder-color" data-block="Paragraph">Article body NOT seleceted</p>
+                    </div> 
+                  </article>
+                </div>
+
+              </div>
+          </div>        
         </div>
         <div class="preview-actions">
         </div>

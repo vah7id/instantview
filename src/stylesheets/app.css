@@ -499,12 +499,13 @@
     margin-top: 60px;
   }
   .preview-frame{
-    height: calc(100% - 120px);
-    border: 2px solid #5bc0de;
+    height: calc(100%);
     background-color: #FFF;
     overflow: scroll;
     font-family: serif;
     padding: 0 20px;
+    text-align: left;
+
   }
   .preview-frame article{
   }
@@ -518,6 +519,7 @@
     margin-left: -20px;
   }
   .preview-frame h1{
+    color: #232323;
     font-weight: bold;
     letter-spacing: 0;
   }
@@ -554,6 +556,7 @@
     color: #aaaaaa !important;
   }
   .preview-article-body{
+    color: #323232 !important;
   }
   .preview-article-body img{
     width: 100% !important;

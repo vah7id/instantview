@@ -5,6 +5,7 @@
       <div class="container">
         <div v-for="item in items" class="domain-item">
             <h3>{{ item.domain }}</h3>
+            <a :href="'http://telegram.me/'+item.telegram_id">{{ item.telegram_id }}</a>
             <button v-on:click="alert( item.template )">GET TEMPLATE CONTENT</button>
             <p>Sample URI : <a :href="item.url">{{ item.url }} </a></p>
             <small>Generated at : {{ item.created_at }}</small>

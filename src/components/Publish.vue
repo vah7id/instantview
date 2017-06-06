@@ -12,6 +12,7 @@
         <div class="form-publish-control">
           <input type="text" name="telegramUsernme" id="telegramUsernameValue" placeholder="@username" value="">
           <button v-on:click="saveTelegramUsername" value="Save">LET ME KNOW</button>
+          <p id="msg"></p>
         </div>
 
           
@@ -25,6 +26,7 @@
 <script type="text/javascript">
 
   import store from '../store';
+  const request = require("browser-request");
 
   export default {
 
@@ -39,7 +41,13 @@
         
       },
       methods: {
-
+        saveTelegramUsername(){
+           request( { method: 'PUT',url: window.api_url+'links/'+window.location.href.split('?id=')[1],json:{telegram_id: document.getElementById('telegramUsernameValue').value } } , function(er, response, body) {
+            if(!er){
+              document.getElementById('msg').innerHTML = 'Your Telegram Username Submited Successfully.'
+            }
+          });
+        }
       }
   }
 

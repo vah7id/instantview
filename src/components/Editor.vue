@@ -289,8 +289,8 @@
 
               var self = this;
               iframe_tmp.innerHTML = iframe_content+tmp.outerHTML;
+              
               iframe_tmp.querySelector('.label-type-'+type +' .remove-selected').addEventListener('click',function(){self.removeLabel(type)},false);
-
 
 
               this.setEvents();
@@ -300,6 +300,8 @@
 
         },
         removeLabel(type){
+          console.log('shayeE')
+
           var iframe_tmp = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
          
           document.getElementById('website-container-iframe-vue').contentWindow.document.getElementById('bordered-selected-' + type).classList.remove('bordered-selected-el');

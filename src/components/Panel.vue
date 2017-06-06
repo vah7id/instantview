@@ -5,7 +5,7 @@
       <div class="container">
         <div v-for="item in items" class="domain-item">
             <h3>{{ item.domain }}</h3>
-            <a :href="'http://telegram.me/'+item.telegram_id">{{ item.telegram_id }}</a>
+            <a v-if="item.telegram_id" :href="'http://t.me/'+tid(item.telegram_id)">&nbsp;&nbsp; Telegram ID :  {{ item.telegram_id }}</a>
             <button v-on:click="alert( item.template )">GET TEMPLATE CONTENT</button>
             <p>Sample URI : <a :href="item.url">{{ item.url }} </a></p>
             <small>Generated at : {{ item.created_at }}</small>
@@ -103,6 +103,13 @@
                     document.body.removeChild(textarea);
                 }
             }
+        },
+        tid(id){
+          if(id.indexOf('@')>-1)
+            return id.split('@')[1];
+          else
+            console.log(id)
+            return id;
         },
         alert(txt){
           alert(txt);

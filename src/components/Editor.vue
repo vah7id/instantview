@@ -278,7 +278,7 @@
               var tmp = document.createElement('DIV');
               tmp.classList.add('label-type-'+type);
               tmp.classList.add('label-type');
-
+              tmp.setAttribute('data',type);
               tmp.innerHTML = '<span class="remove-selected">X</span>'+type;
               tmp.style.left = this.cumulativeOffset(this.current_selected).left + 'px';
               tmp.style.top  = this.cumulativeOffset(this.current_selected).top - 26 + 'px';
@@ -290,7 +290,7 @@
               var self = this;
               iframe_tmp.innerHTML = iframe_content+tmp.outerHTML;
               
-              iframe_tmp.querySelector('.label-type-'+type +' .remove-selected').addEventListener('click',function(){self.removeLabel(type)},false);
+              this.setRemoveLabelEvents();
 
 
               this.setEvents();
@@ -299,9 +299,25 @@
             }
 
         },
-        removeLabel(type){
-          console.log('shayeE')
 
+        setRemoveLabelEvents(){
+
+          var iframe_tmp = document.querySelector('#website-container-iframe-vue').contentWindow.document.querySelector('body')
+
+          var labels = iframe_tmp.querySelectorAll('.label-type'), self = this;
+
+          for(var i = 0 ; i < labels.length ; i++){
+            var type = labels[i].getAttribute('data');
+            console.log(type)
+            iframe_tmp.querySelector('.label-type-'+type +' .remove-selected').addEventListener('click',function(event){self.removeLabel(event)},false);
+          }
+
+        },
+
+        removeLabel(event){
+          console.log(event)
+          var type = event.target.parentNode.getAttribute('data');
+          console.log(type)
           var iframe_tmp = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
          
           document.getElementById('website-container-iframe-vue').contentWindow.document.getElementById('bordered-selected-' + type).classList.remove('bordered-selected-el');

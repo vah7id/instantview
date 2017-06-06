@@ -35,7 +35,7 @@
               </li>
               <li class="format-type" id="indicator-subtitle">
                 <i class="checkmark-container"><i class="material-icons">check</i></i>
-                <span>Subtitle</span>
+                <span>Subtitle / Lead</span>
               </li>
               <li class="format-type" id="indicator-author">
                 <i class="checkmark-container"><i class="material-icons">check</i></i>

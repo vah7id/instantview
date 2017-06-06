@@ -172,6 +172,11 @@
           this.designMode = val;
           return val;
         },
+        url: function(val){
+          this.url = val;
+          this.startCrawl();
+          return val;
+        },
         types: function(val){
           this.types = val;
           this.getPreviewData();
@@ -180,69 +185,73 @@
           console.log('change')
           this.preview_data = val;
           return val;
+        },
+        $route: function(val){
+          this.startCrawl();
         }
       },
       created() {
-        console.log(decodeURIComponent(window.location.href.split('?url=')[1]))
-        this.url = decodeURIComponent(window.location.href.split('?url=')[1]);
-        var self = this;
-        var domain = this.url.split('http://')[1].split('/')[0];
-        
-        request( window.api_url+'links/getHTML?url='+this.url , function(er, response, body) {
-          if(!er){
-
-            var el = document.createElement( 'div' );
-
-            el.innerHTML = JSON.parse(body).html.body;
-
-            var _base_url = 'http://'+domain, _head = '';
-
-            if(JSON.parse(body).html['link-css']){
-              for(var css in JSON.parse(body).html['link-css']){
-
-                if(JSON.parse(body).html['link-css'][css].indexOf('http://')>-1 ||
-                  JSON.parse(body).html['link-css'][css].indexOf('www.')>-1){
-                  _base_url = '';
-                }
-
-                _head += '<link href="'+_base_url+JSON.parse(body).html['link-css'][css]+'" type="text/css" rel="stylesheet" media="all" />';
-              }
-
-            }
-
-            if(JSON.parse(body).html['inline-css']){
-              for(var css in JSON.parse(body).html['inline-css']){
-                _head += '<style type="text/css">'+JSON.parse(body).html['inline-css'][css]+'</style>'
-              }
-            }
-
-            _head += '<style type="text/css">.bordered-selected-el{border:1px solid #1ca5e8;} .bordered-active-el{box-shadow: 0px 0px 15px rgba(30, 152, 212, 0.6) !important;border:1px solid #1ca5e8;box-sizing: border-box; !important}.label-type{background-color: rgba(30, 152, 212, 0.9); color : #FFF; padding-right:20px; position: absolute;z-index: 10002;font-family: sans-serif;text-transform: uppercase;font-size: 12px;letter-spacing: 2px;box-shadow: none !important; border: none !important;line-height: 26px;} .remove-selected{float: left;width: 26px;margin-right: 20px;text-align: center;line-height: 25px;background-color: rgba(0, 0, 0, .1);text-transform: lowercase;font-size: 16px; box-shadow: none !important; border: none !important; cursor: pointer;}</style>';
-
-            //document.getElementById('main').innerHTML = el.innerHTML;
-            var doc = document.getElementById('website-container-iframe-vue').contentWindow.document;
-            doc.open();
-            doc.write(_head+'<body class="'+JSON.parse(body).html.bodyClasses+'">'+el.innerHTML+'</body>');
-            doc.close();
-
-            setTimeout(function(){
-              self.setEvents();
-            },1000);
-
-
-          } else{
-             console.log('There was an error, but at least browser-request loaded and ran!')
-              throw er 
-          }
-
-
-        })
-
+        this.startCrawl();
       },
       mounted(){
       },
       methods: {
         showPreview(){
           this.getPreviewData();
+        },
+        startCrawl(){
+            this.url = decodeURIComponent(window.location.href.split('?url=')[1]);
+            var self = this;
+            var domain = this.url.split('http://')[1].split('/')[0];
+            
+            request( window.api_url+'links/getHTML?url='+this.url , function(er, response, body) {
+              if(!er){
+
+                var el = document.createElement( 'div' );
+
+                el.innerHTML = JSON.parse(body).html.body;
+
+                var _base_url = 'http://'+domain, _head = '';
+
+                if(JSON.parse(body).html['link-css']){
+                  for(var css in JSON.parse(body).html['link-css']){
+
+                    if(JSON.parse(body).html['link-css'][css].indexOf('http://')>-1 ||
+                      JSON.parse(body).html['link-css'][css].indexOf('www.')>-1){
+                      _base_url = '';
+                    }
+
+                    _head += '<link href="'+_base_url+JSON.parse(body).html['link-css'][css]+'" type="text/css" rel="stylesheet" media="all" />';
+                  }
+
+                }
+
+                if(JSON.parse(body).html['inline-css']){
+                  for(var css in JSON.parse(body).html['inline-css']){
+                    _head += '<style type="text/css">'+JSON.parse(body).html['inline-css'][css]+'</style>'
+                  }
+                }
+
+                _head += '<style type="text/css">.bordered-selected-el{border:1px solid #1ca5e8;} .bordered-active-el{box-shadow: 0px 0px 15px rgba(30, 152, 212, 0.6) !important;border:1px solid #1ca5e8;box-sizing: border-box; !important}.label-type{background-color: rgba(30, 152, 212, 0.9); color : #FFF; padding-right:20px; position: absolute;z-index: 10002;font-family: sans-serif;text-transform: uppercase;font-size: 12px;letter-spacing: 2px;box-shadow: none !important; border: none !important;line-height: 26px;} .remove-selected{float: left;width: 26px;margin-right: 20px;text-align: center;line-height: 25px;background-color: rgba(0, 0, 0, .1);text-transform: lowercase;font-size: 16px; box-shadow: none !important; border: none !important; cursor: pointer;}</style>';
+
+                //document.getElementById('main').innerHTML = el.innerHTML;
+                var doc = document.getElementById('website-container-iframe-vue').contentWindow.document;
+                doc.open();
+                doc.write(_head+'<body class="'+JSON.parse(body).html.bodyClasses+'">'+el.innerHTML+'</body>');
+                doc.close();
+
+                setTimeout(function(){
+                  self.setEvents();
+                },1000);
+
+
+              } else{
+                 console.log('There was an error, but at least browser-request loaded and ran!')
+                  throw er 
+              }
+
+
+            })
         },
         showModal(title, message){
           this.modalTitle= title;
@@ -289,8 +298,8 @@
 
               var self = this;
               iframe_tmp.innerHTML = iframe_content+tmp.outerHTML;
+              
               iframe_tmp.querySelector('.label-type-'+type +' .remove-selected').addEventListener('click',function(){self.removeLabel(type)},false);
-
 
 
               this.setEvents();
@@ -300,6 +309,8 @@
 
         },
         removeLabel(type){
+          console.log('shayeE')
+
           var iframe_tmp = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
          
           document.getElementById('website-container-iframe-vue').contentWindow.document.getElementById('bordered-selected-' + type).classList.remove('bordered-selected-el');
@@ -475,8 +486,9 @@
                     }
 
                     title_confirm = true;
-                    alert('Please try again to select correct element.');
-                    console.log('bara '+type_item+' chizi peyda nashod !!!!');
+                    this.showModal('Warning ! ','Please try again to select correct element.');
+                    document.querySelector('.submit-template').innerHTML = 'PUBLISH';
+                    return false;
                   }
 
                 } while(!title_confirm)

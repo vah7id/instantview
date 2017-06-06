@@ -584,8 +584,8 @@
               }, false);
 
               AllElements[i].addEventListener("click", function(e){
-                if(e.target.nodeName == 'A')
-                  e.preventDefault();
+                e.preventDefault();
+                e.stopImmediatePropagation();
 
                 if(!e.target.classList.contains('bordered-selected-el') && !e.target.classList.contains('label-type') && !e.target.classList.contains('remove-selected'))
                   self.designMode = 'select-format';

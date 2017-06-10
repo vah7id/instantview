@@ -99,6 +99,7 @@
 
   .form-url input{
     width: 100%;
+    margin-bottom: 30px;
   }
   .form-publish input{
     width: 100%;
@@ -112,10 +113,6 @@
     margin: 0 auto;
   }
   .form-url button{
-    width: 150px;
-    position: absolute;
-    top: 0;
-    right: 0;
   }
   .form-publish button{
     width: 200px;
@@ -591,6 +588,34 @@
   .back-to-home a:hover{
     color: #2088bb;
   }
+  .analyzing-loading{
+    background-color: #fff;
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+  }
+  .analyzing-container{
+    width: 174px;
+    height: 174px;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+  .analyzing-actions{
+    width: 980px;
+    margin: 0 auto;
+    margin-top: 60px;
+    text-align: center;
+  }
+  .analyzing-actions > p{
+    font-weight: 300;
+    color: #1e98d4;
+    font-size: 22px;
+  }
+  .analyzing-actions > button{
+    margin-top: 20px;
+  }
 
   /*--- Loading Spinner ---*/
 
@@ -640,7 +665,6 @@
   }
 
 
-
   #website-container-iframe-vue{
     position: relative;
     z-index: 5;
@@ -649,3 +673,67 @@
     border:none !important;
     max-width: 100% !important;
   }
+
+  /*--- Analyze Animation ---*/
+
+@keyframes circle {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+
+@keyframes inner-circle {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(-360deg); }
+}
+
+.analyzing-container > div {
+    width:100px;
+    height:100px;
+    margin: 20px auto 0;
+    line-height:1;
+    animation: circle 3s linear infinite;
+    transform-origin:50% 86px;
+}
+.analyzing-container > img {
+    position: absolute;
+    width: 174px;
+}
+.analyzing-container div > div {
+    animation: inner-circle 3s linear infinite;
+    width: 70px;
+}
+
+.analyzing-container div > div > i{
+    color: #1e98d4;
+    font-size:50px;
+}
+
+/*--- Content Animate ---*/
+
+
+@keyframes contentAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-o-keyframes contentAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-moz-keyframes contentAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes contentAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+.analyzing-container > img {
+   -webkit-animation: contentAnimation 3s infinite;
+   -moz-animation: contentAnimation 3s infinite;
+   -o-animation: contentAnimation 3s infinite;
+    animation: contentAnimation 3s infinite;
+}

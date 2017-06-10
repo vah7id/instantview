@@ -7,6 +7,7 @@ import StartView from './components/Start.vue'
 import EditorView from './components/Editor.vue'
 import PublishView from './components/Publish.vue'
 import PanelView from './components/Panel.vue'
+import GenerateView from './components/Generate.vue'
 
 import App from './components/App.vue'
 
@@ -22,7 +23,8 @@ var _routes = {
     { path: '/start', component: StartView, name: 'Instant View Telegram Generator' },
     { path: '/editor', component: EditorView, name: 'Editor Instant View Maker' },
     { path: '/publish', component: PublishView, name: 'Publish your instant view' },
-    { path: '/karim', component: PanelView, name: 'Instant View Telegram Generator' }
+    { path: '/karim', component: PanelView, name: 'Instant View Telegram Generator' },
+    { path: '/generate', component: GenerateView, name: 'Auto Generate Template' }
   ]
 };
 

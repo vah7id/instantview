@@ -161,15 +161,24 @@
   button.line{
     background-color: transparent;
     color: #1e98d4;
-    border: 1px solid #1e98d4;;
+    border: 1px solid #1e98d4;
   }
   button.line:hover{
     color: #1ca5e8;
-    border: 1px solid #1ca5e8;;
+    border: 1px solid #1ca5e8;
   }
   button.line:active{
     color: #2088bb;
-    border: 1px solid #2088bb;;
+    border: 1px solid #2088bb;
+  }
+  button.disabled{
+    background-color: #cecece;
+    cursor: default;
+  }
+  button.line.disabled{
+    background-color: transparent;
+    color: #cecece;
+    border: 1px solid #cecece;
   }
 
 

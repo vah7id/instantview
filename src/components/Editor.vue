@@ -388,7 +388,9 @@
               } else{
 */
                 if(this.types[type_item].classList != null && this.types[type_item].classList != ''){
+
                   if( iframe.querySelectorAll( this.classMaker(this.types[type_item].classList) ).length == 1 ){
+
                       this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@class="'+this.types[type_item].classList+'"]';
 
                         if(type_item == 'image_url')
@@ -399,6 +401,8 @@
 
                         this.rules += '\n';
                         title_confirm = true;
+
+                        console.log(this.rules);
 
                       }
                 }

@@ -8,9 +8,9 @@
         <section class="form-container form-url">
           <h1>Enter a sample <b>article URL</b> to <b>instant view ready</b> your website links.</h1>
           <div class="form-url-control">
-            <input type="text" name="url" id="url-value" placeholder="http://example.com/single-article/:title" value="">
-            <button v-on:click="start" class="medium" value="Start">Open Editor</button>
-            <button v-on:click="startGenerate" class="medium line" value="Start">Auto Generate</button>
+            <input v-on:keyup="inputUrl" type="text" name="url" id="url-value" placeholder="http://example.com/single-article/:title" value="">
+            <button v-on:click="start" class="medium disabled open-editor" value="Start">Open Editor</button>
+            <button v-on:click="startGenerate" class="medium disabled line auto-generate" value="Start">Auto Generate</button>
           </div>
           <div class="middle-links">
             <ul>
@@ -34,7 +34,7 @@
 
       data: function(){
         return {
-          name: null
+          name: null,
         }
       },
       created() {
@@ -42,10 +42,23 @@
       },
       methods: {
         start(){
-          window.location.assign('#/editor?url='+document.getElementById('url-value').value);
+          if(document.getElementById('url-value').value)
+            window.location.assign('#/editor?url='+document.getElementById('url-value').value);
         },
         startGenerate(){
-          window.location.assign('#/generate?url='+document.getElementById('url-value').value);
+          if(document.getElementById('url-value').value)
+            window.location.assign('#/generate?url='+document.getElementById('url-value').value);
+        },
+        inputUrl(){
+          if(document.getElementById('url-value').value){
+            document.querySelector('.form-url-control button.open-editor').classList.remove('disabled');
+            document.querySelector('.form-url-control button.auto-generate').classList.remove('disabled');
+          }
+          else{
+            document.querySelector('.form-url-control button.open-editor').classList.add('disabled');
+            document.querySelector('.form-url-control button.auto-generate').classList.add('disabled');
+          }
+
         }
 
       }

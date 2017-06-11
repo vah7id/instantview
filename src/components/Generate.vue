@@ -35,7 +35,8 @@
         return {
           name: null,
           url: null,
-          message: ''
+          message: '',
+          rules: null
         }
       },
       watch:{
@@ -56,6 +57,30 @@
         openEditor(){
           window.location.assign('#/editor?url='+this.url);
         },
+        submit(){
+
+          var domain = '';
+          if(this.url.indexOf('https')>-1)
+            domain = this.url.split('https://')[1].split('/')[0];
+          else
+            domain = this.url.split('http://')[1].split('/')[0];
+
+
+           request( {url: window.api_url+'links',method:'POST',
+            json:{
+                'domain':domain,
+                'url': this.url,
+                'template' : this.rules,
+                'created_at': new Date()
+              }
+            },function(er, response, body) {
+              if(!er){
+                document.querySelector('.submit-template').innerHTML = 'PUBLISH';
+                window.location.assign('#/publish?id='+body.id);
+              }
+          });
+
+        },
         startCrawl(){
           
           this.url = window.location.href.split('?url=')[1];
@@ -72,6 +97,8 @@
               if(!er){
                 var res = JSON.parse(body);
                 document.getElementById('cannot_fetch').style.display = 'block'; 
+
+                self.rules = res.tpl;
 
                 if( JSON.parse(body).html.checklist.body == false ){
                   self.message = 'Cannot fetch data from template of html. Please trying manually option with editor.';

@@ -210,10 +210,6 @@
 
               
 
-            if(this.url.indexOf('https')>-1)
-              domain = this.url.split('https://')[1].split('/')[0];
-
-            
             request( window.api_url+'links/getHTML?url='+this.url , function(er, response, body) {
               if(!er){
 

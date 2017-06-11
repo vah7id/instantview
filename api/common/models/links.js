@@ -88,7 +88,6 @@ module.exports = function(links) {
       }
 
       if($('div[itemtype="http://schema.org/Article"]').length>0){
-        console.log('inja')
         results += 'body: //div[@itemtype="http://schema.org/Article"]'+' \n'
         checklist.body = true;
 
@@ -97,47 +96,48 @@ module.exports = function(links) {
       if($('article').length>0){
         results += 'body: //article'+' \n'
         checklist.body = true;
-
       }
 
       if($('meta[property="og:image"]').length>0){
-        results += 'cover: //meta[@property="og:image"]/@content'+' \n'
+        results += '@replace_tag(<img>): //meta[@property="og:image"]'+ ' \n';
+        results += '@set_attr(src, @content): //img[@property="og:image"]'+ ' \n';
+        results += 'cover: //img[@property="og:image"]'+ ' \n';
         checklist.cover = true;
-
       }
 
       if($('meta[property="twitter:image"]').length>0){
-        results += 'cover: //meta[@property="twitter:image"]/@content'+' \n'
+        results += '@replace_tag(<img>): //meta[@property="twitter:image"]'+ ' \n';
+        results += '@set_attr(src, @content): //img[@property="twitter:image"]'+ ' \n';
+        results += 'cover: //img[@property="twitter:image"]'+ ' \n';
         checklist.cover = true;
-
       }
 
       if($('meta[itemprop="image"]').length>0){
-        results += 'cover: //meta[@itemprop="image"]/@content'+' \n'
+        results += '@replace_tag(<img>): //meta[@itemprop="image"]'+ ' \n';
+        results += '@set_attr(src, @content): //img[@itemprop="image"]'+ ' \n';
+        results += 'cover: //img[@itemprop="image"]';
         checklist.cover = true;
-
       }
 
       if($('img[itemprop="image"]').length>0){
-        results += 'cover: //img[@itemprop="image"]/@src'+' \n'
+        results += 'cover: //img[@itemprop="image"]'+' \n'
         checklist.cover = true;
-
       }
 
       if($('img[itemprop="image url"]').length>0){
-        results += 'cover: //img[@itemprop="image url"]/@src'+' \n'
+        results += 'cover: //img[@itemprop="image url"]'+' \n'
         checklist.cover = true;
 
       }
 
       if($('meta[property="article:published_time"]').length>0){
-        results += 'published_date: //meta[property="article:published_time"]/@content'+' \n'
+        results += 'published_date: //meta[@property="article:published_time"]/@content'+' \n'
         checklist.published_date = true;
 
       }
 
       if($('meta[property="article:published_date"]').length>0){
-        results += 'published_date: //meta[property="article:published_date"]/@content'+' \n'
+        results += 'published_date: //meta[@property="article:published_date"]/@content'+' \n'
         checklist.published_date = true;
 
       }
@@ -149,10 +149,13 @@ module.exports = function(links) {
       }
 
       if($('meta[property="og:description"]').length>0){
-        results += 'author: //meta[@property="og:description"]/@content'+' \n'
+        results += 'description: //meta[@property="og:description"]/@content'+' \n'
         checklist.description = true;
 
       }
+
+      results += 'image_url: $cover'+' \n'
+
 
 		  cb(null, { tpl: results, checklist: checklist } );
 

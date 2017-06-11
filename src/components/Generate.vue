@@ -45,6 +45,10 @@
           this.startCrawl();
           return val;
         },
+        rules: function(val){
+          this.rules = val;
+          return val;
+        },
         $route: function(val){
           this.startCrawl();
           this.message = '';
@@ -58,7 +62,9 @@
           window.location.assign('#/editor?url='+this.url);
         },
         submit(){
-
+        
+          this.url = decodeURIComponent(this.url);
+          
           var domain = '';
           if(this.url.indexOf('https')>-1)
             domain = this.url.split('https://')[1].split('/')[0];
@@ -75,7 +81,6 @@
               }
             },function(er, response, body) {
               if(!er){
-                document.querySelector('.submit-template').innerHTML = 'PUBLISH';
                 window.location.assign('#/publish?id='+body.id);
               }
           });
@@ -86,19 +91,18 @@
           this.url = window.location.href.split('?url=')[1];
           var self = this;
           this.message = '';
-          document.getElementById('cannot_fetch').style.display = 'none'; 
 
           if(this.url != null){
             console.log(this.url)
             var self = this;
               
             request( window.api_url+'links/generateTpl?url='+this.url , function(er, response, body) {
+              document.getElementById('cannot_fetch').style.display = 'none'; 
 
               if(!er){
                 var res = JSON.parse(body);
                 document.getElementById('cannot_fetch').style.display = 'block'; 
-
-                self.rules = res.tpl;
+                self.rules = res.html.tpl;
 
                 if( JSON.parse(body).html.checklist.body == false ){
                   self.message = 'Cannot fetch data from template of html. Please trying manually option with editor.';

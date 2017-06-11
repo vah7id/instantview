@@ -366,7 +366,7 @@
           document.querySelector('.submit-template').innerHTML = 'PUBLISHING...';
 
           if( document.querySelector('input[name="channelName"]').value != '' ){
-            this.rules += 'chanel:'+document.querySelector('input[name="channelName"]').value+'\n';
+            this.rules += 'channel: "'+document.querySelector('input[name="channelName"]').value+'"'+'\n';
           }
 
           var self = this;

@@ -151,11 +151,9 @@ module.exports = function(links) {
       if($('meta[property="og:description"]').length>0){
         results += 'description: //meta[@property="og:description"]/@content'+' \n'
         checklist.description = true;
-
       }
 
       results += 'image_url: $cover'+' \n'
-
 
 		  cb(null, { tpl: results, checklist: checklist } );
 

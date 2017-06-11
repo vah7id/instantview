@@ -42,10 +42,10 @@
       },
       methods: {
         start(){
-          window.location.assign('#/editor?url='+document.getElementById('url-value').value);
+            window.location.assign('#/editor?url='+document.getElementById('url-value').value);
         },
         startGenerate(){
-          window.location.assign('#/generate?url='+document.getElementById('url-value').value);
+            window.location.assign('#/generate?url='+document.getElementById('url-value').value);
         }
 
       }

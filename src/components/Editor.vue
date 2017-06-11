@@ -182,7 +182,6 @@
           this.getPreviewData();
         },
         preview_data: function(val){
-          console.log('change')
           this.preview_data = val;
           return val;
         },
@@ -202,7 +201,18 @@
         startCrawl(){
             this.url = decodeURIComponent(window.location.href.split('?url=')[1]);
             var self = this;
-            var domain = this.url.split('http://')[1].split('/')[0];
+           
+            var domain = '';
+            if(this.url.indexOf('https')>-1)
+              domain = this.url.split('https://')[1].split('/')[0];
+            else
+              domain = this.url.split('http://')[1].split('/')[0];
+
+              
+
+            if(this.url.indexOf('https')>-1)
+              domain = this.url.split('https://')[1].split('/')[0];
+
             
             request( window.api_url+'links/getHTML?url='+this.url , function(er, response, body) {
               if(!er){

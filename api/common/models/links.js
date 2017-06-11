@@ -1,52 +1,177 @@
 const cheerio = require('cheerio')
 var request = require("request")
 var fetch = require('node-fetch');
+var fetch = require('node-fetch');
+
 
 module.exports = function(links) {
   
-  links.getHTML = function(url,cb) {
+  links.getHTML = function(url,cb){
+    url = encodeURI(url);
+   fetch(url,{ headers: { 'User-Agent': 'Web/2.0'} }).then(function(res) {
+        return res.text();
+    }).then(function(body) {
+      
+        const $ = cheerio.load(body)
+        var html = {
+          body: $('body').html(),
+          bodyClasses : $('body').attr('class')
+        };
+
+      if($('style')){
+        html['inline-css'] = [];
+          for(var i = 0 ; i<$('style').length ; i++)
+            html['inline-css'].push ( $('style').eq(i).html() )
+        }
+        
+
+        if($('link[type="text/css"]') ){
+          html['link-css'] = [];
+          for(var j = 0 ; j<$('link[type="text/css"]').length ; j++){
+            html['link-css'].push( $('link[type="text/css"]').eq(j).attr('href') );
+          }
+        }
+
+        if($('link[rel="stylesheet"]') ){
+          if( html['link-css'].length == 0 )
+          html['link-css'] = [];
+
+          for(var j = 0 ; j<$('link[rel="stylesheet"]').length ; j++){
+            if($('link[rel="stylesheet"]').eq(j).attr('type') != 'text/css')
+              html['link-css'].push( $('link[rel="stylesheet"]').eq(j).attr('href') );
+          }
+        }
+
+    cb(null, html);
+
+    });
+
+  };
+
+  links.generateTpl = function(url,cb) {
    url = encodeURI(url);
    fetch(url,{ headers: { 'User-Agent': 'Web/2.0'} }).then(function(res) {
         return res.text();
     }).then(function(body) {
     	
-        const $ = cheerio.load(body)
-        var html = {
-        	body: $('body').html(),
-        	bodyClasses : $('body').attr('class')
-        };
+      const $ = cheerio.load(body)
 
-  		if($('style')){
-  			html['inline-css'] = [];
-      		for(var i = 0 ; i<$('style').length ; i++)
-	        	html['inline-css'].push ( $('style').eq(i).html() )
-      	}
-        
+      var html = {
+      	body: $('body').html()
+      };
 
-        if($('link[type="text/css"]') ){
-        	html['link-css'] = [];
-      		for(var j = 0 ; j<$('link[type="text/css"]').length ; j++){
-        		html['link-css'].push( $('link[type="text/css"]').eq(j).attr('href') );
-      		}
-        }
+      var results = '';
+      var checklist = {
+        title: false,
+        body: false,
+        cover: false,
+        published_date: false,
+        author: false,
+        description: false
+      }
 
-        if($('link[rel="stylesheet"]') ){
-       		if( html['link-css'].length == 0 )
-   			 	html['link-css'] = [];
+      if($('meta[property="og:title"]').length>0){
+        results += 'title: //meta[@property="og:title"]/@content'+' \n'
+        checklist.title = true;
+      }
 
-      		for(var j = 0 ; j<$('link[rel="stylesheet"]').length ; j++){
-      			if($('link[rel="stylesheet"]').eq(j).attr('type') != 'text/css')
-        			html['link-css'].push( $('link[rel="stylesheet"]').eq(j).attr('href') );
-      		}
-        }
+      if($('meta[property="twitter:title"]').length>0){
+        results += 'title: //meta[@property="twitter:title"]/@content'+' \n'
+        checklist.title = true;
 
-		cb(null, html);
+      }
+
+      if($('title')){
+        results += 'title: //title'+' \n'
+        checklist.title = true;
+
+      }
+
+      if($('div[itemtype="http://schema.org/Article"]').length>0){
+        console.log('inja')
+        results += 'body: //div[@itemtype="http://schema.org/Article"]'+' \n'
+        checklist.body = true;
+
+      }
+
+      if($('article').length>0){
+        results += 'body: //article'+' \n'
+        checklist.body = true;
+
+      }
+
+      if($('meta[property="og:image"]').length>0){
+        results += 'cover: //meta[@property="og:image"]/@content'+' \n'
+        checklist.cover = true;
+
+      }
+
+      if($('meta[property="twitter:image"]').length>0){
+        results += 'cover: //meta[@property="twitter:image"]/@content'+' \n'
+        checklist.cover = true;
+
+      }
+
+      if($('meta[itemprop="image"]').length>0){
+        results += 'cover: //meta[@itemprop="image"]/@content'+' \n'
+        checklist.cover = true;
+
+      }
+
+      if($('img[itemprop="image"]').length>0){
+        results += 'cover: //img[@itemprop="image"]/@src'+' \n'
+        checklist.cover = true;
+
+      }
+
+      if($('img[itemprop="image url"]').length>0){
+        results += 'cover: //img[@itemprop="image url"]/@src'+' \n'
+        checklist.cover = true;
+
+      }
+
+      if($('meta[property="article:published_time"]').length>0){
+        results += 'published_date: //meta[property="article:published_time"]/@content'+' \n'
+        checklist.published_date = true;
+
+      }
+
+      if($('meta[property="article:published_date"]').length>0){
+        results += 'published_date: //meta[property="article:published_date"]/@content'+' \n'
+        checklist.published_date = true;
+
+      }
+
+      if($('meta[property="article:author"]').length>0){
+        results += 'author: //meta[@property="article:author"]/@content'+' \n'
+        checklist.author = true;
+
+      }
+
+      if($('meta[property="og:description"]').length>0){
+        results += 'author: //meta[@property="og:description"]/@content'+' \n'
+        checklist.description = true;
+
+      }
+
+		  cb(null, { tpl: results, checklist: checklist } );
 
     });
 
   };
 
   links.remoteMethod(
+    'generateTpl', {
+      http: {
+        path: '/generateTpl',
+        verb: 'get'
+      },
+      accepts: {arg: 'url', type: 'string'},
+      returns: {
+        arg: 'html',
+        type: 'string'
+      }
+    },
     'getHTML', {
       http: {
         path: '/getHTML',

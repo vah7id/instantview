@@ -1,6 +1,9 @@
   
   /* --- GENERAL STYLES --- */
-
+  .submit{
+    background-color: #26b623 !important;
+    color: #fff !important;
+  }
   html{
     height : 100%;
   }

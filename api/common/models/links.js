@@ -160,6 +160,22 @@ module.exports = function(links) {
 
   };
 
+
+
+  links.remoteMethod(
+    'generateTpl', {
+      http: {
+        path: '/generateTpl',
+        verb: 'get'
+      },
+      accepts: {arg: 'url', type: 'string'},
+      returns: {
+        arg: 'html', 
+        type: 'Object'
+      }
+    }
+  );
+
   links.remoteMethod(
     'getHTML', {
       http: {
@@ -169,17 +185,6 @@ module.exports = function(links) {
       accepts: {arg: 'url', type: 'string'},
       returns: {
         arg: 'html',
-        type: 'Object'
-      }
-    },
-    'generateTpl', {
-      http: {
-        path: '/generateTpl',
-        verb: 'get'
-      },
-      accepts: {arg: 'url', type: 'string'},
-      returns: {
-        arg: 'html', 
         type: 'Object'
       }
     }

@@ -1,11 +1,11 @@
 const cheerio = require('cheerio')
 var request = require("request")
 var fetch = require('node-fetch');
-var fetch = require('node-fetch');
 
 
-module.exports = function(links) {
-  
+module.exports = function(app) {
+  var links = app.models.links;
+
   links.getHTML = function(url,cb){
     url = encodeURI(url);
    fetch(url,{ headers: { 'User-Agent': 'Web/2.0'} }).then(function(res) {
@@ -170,7 +170,7 @@ module.exports = function(links) {
       accepts: {arg: 'url', type: 'string'},
       returns: {
         arg: 'html',
-        type: 'string'
+        type: 'Object'
       }
     },
     'getHTML', {
@@ -181,7 +181,7 @@ module.exports = function(links) {
       accepts: {arg: 'url', type: 'string'},
       returns: {
         arg: 'html',
-        type: 'string'
+        type: 'Object'
       }
     }
   );

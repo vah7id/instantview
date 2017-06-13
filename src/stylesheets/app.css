@@ -1,4 +1,4 @@
-  
+
   /* --- GENERAL STYLES --- */
   .submit{
     background-color: #26b623 !important;
@@ -286,7 +286,7 @@
     display: none;
   }
   .checklist-container.instant-view-steps{
-    width: 50%;
+    width: 70%;
   }
   .checklist-container.link-preview-steps{
     width: 20%;

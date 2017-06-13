@@ -47,6 +47,7 @@
               </li>
             </ul>
           </div>
+          <!--
           <div class="checklist-container link-preview-steps">
             <h3 class="h-default"><b>Link Preview</b> Checklist</h3>
             <h3 class="h-select"><b>Select</b> Link Preview Rule</h3>
@@ -61,6 +62,7 @@
               </li>
             </ul>
           </div>
+        -->
           <div class="actions-container">
             <div class="extra-actions">
               <h3 class="h-default"><b>Channel</b> Name</h3>

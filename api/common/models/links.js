@@ -3,8 +3,7 @@ var request = require("request")
 var fetch = require('node-fetch');
 
 
-module.exports = function(app) {
-  var links = app.models.links;
+module.exports = function(links) {
 
   links.getHTML = function(url,cb){
     url = encodeURI(url);

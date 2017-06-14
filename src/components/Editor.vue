@@ -404,6 +404,7 @@
 
           if(!this.types['title'] || !this.types['body']){
             this.showModal('required','Title and Article Body is required!');
+            document.querySelector('.submit-template').removeAttribute('disabled');
             return false;
           }
 

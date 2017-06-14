@@ -238,18 +238,20 @@
                       }
 
                     }
-                    
+
                   }
 
                 }
 
-                var _base_url = 'http://'+domain, _head = '';
+                var portocol  = self.url.indexOf('http://')>-1 ? 'http://' : 'https://';
+                var _base_url = portocol+domain, _head = '';
 
                 if(JSON.parse(body).html['link-css']){
                   for(var css in JSON.parse(body).html['link-css']){
 
                     if(JSON.parse(body).html['link-css'][css].indexOf('http://')>-1 ||
-                      JSON.parse(body).html['link-css'][css].indexOf('www.')>-1){
+                      JSON.parse(body).html['link-css'][css].indexOf('www.')>-1 || 
+                      JSON.parse(body).html['link-css'][css].indexOf('https://')>-1){
                       _base_url = '';
                     }
 

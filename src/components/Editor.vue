@@ -556,7 +556,7 @@
 
           request( {url: window.api_url+'links',method:'POST',
             json:{
-                'domain':this.url.split('http://')[1].split('/')[0],
+                // 'domain':this.url.split('http://')[1].split('/')[0],
                 'url': this.url,
                 'template' : this.rules,
                 'created_at': new Date()

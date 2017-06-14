@@ -545,7 +545,7 @@
                     }
 
                     title_confirm = true;
-                    this.showModal('Warning ! ','Some template rules Missed because of your html content issues.');
+                    // this.showModal('Warning ! ','Some template rules Missed because of your html content issues.');
                     document.querySelector('.submit-template').innerHTML = 'PUBLISH';
                     
                   }

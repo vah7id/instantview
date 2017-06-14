@@ -221,12 +221,26 @@
                 el.innerHTML = JSON.parse(body).html.body;
 
                 var images = el.getElementsByTagName('img');
-                console.log(images)
+
                 for(var i = 0 ; i < images.length ; i++){
+
                   var src = images[i].getAttribute('src');
-                  if(src.indexOf(domain)<0){
-                    images[i].setAttribute('src','http://'+domain+'/'+src);
+                  
+                  if(src != null ){
+                    
+                    if(src.indexOf('http://')<0 && src.indexOf('https://')<0){
+
+                      if( self.url.indexOf('http://')>-1 ){
+                        images[i].setAttribute('src','http://'+domain+'/'+src);
+                      }
+                      else if( self.url.indexOf('https://')>-1 ){
+                        images[i].setAttribute('src','https://'+domain+'/'+src);
+                      }
+
+                    }
+                    
                   }
+
                 }
 
                 var _base_url = 'http://'+domain, _head = '';

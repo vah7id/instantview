@@ -197,10 +197,12 @@
       mounted(){
       },
       methods: {
+
         showPreview(){
           this.getPreviewData();
         },
         startCrawl(){
+
             this.url = decodeURIComponent(window.location.href.split('?url=')[1]);
             var self = this;
            
@@ -209,7 +211,6 @@
               domain = this.url.split('https://')[1].split('/')[0];
             else
               domain = this.url.split('http://')[1].split('/')[0];
-
               
 
             request( window.api_url+'links/getHTML?url='+this.url , function(er, response, body) {
@@ -218,6 +219,15 @@
                 var el = document.createElement( 'div' );
 
                 el.innerHTML = JSON.parse(body).html.body;
+
+                var images = el.getElementsByTagName('img');
+                console.log(images)
+                for(var i = 0 ; i < images.length ; i++){
+                  var src = images[i].getAttribute('src');
+                  if(src.indexOf(domain)<0){
+                    images[i].setAttribute('src','http://'+domain+'/'+src);
+                  }
+                }
 
                 var _base_url = 'http://'+domain, _head = '';
 
@@ -365,8 +375,6 @@
           //this.rules += '?exist: $body \n';
           //title
 
-          document.querySelector('.submit-template').innerHTML = 'PUBLISHING...';
-
           if( document.querySelector('input[name="channelName"]').value != '' ){
             this.rules += 'channel: "'+document.querySelector('input[name="channelName"]').value+'"'+'\n';
           }
@@ -379,6 +387,9 @@
             this.showModal('required','Title and Article Body is required!');
             return false;
           }
+
+          document.querySelector('.submit-template').innerHTML = 'PUBLISHING...';
+
      
           for(var type_item in this.types){
              
@@ -554,9 +565,16 @@
           this.rules += 'published_date: //meta[@property="article:published_time"]/@content'+' \n';
 
 
+          var domain = '';
+            if(this.url.indexOf('https')>-1)
+              domain = this.url.split('https://')[1].split('/')[0];
+            else
+              domain = this.url.split('http://')[1].split('/')[0];
+
+
           request( {url: window.api_url+'links',method:'POST',
             json:{
-                'domain':this.url.split('http://')[1].split('/')[0],
+                'domain':domain,
                 'url': this.url,
                 'template' : this.rules,
                 'created_at': new Date()

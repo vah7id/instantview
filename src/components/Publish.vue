@@ -15,7 +15,7 @@
           <p id="msg"></p>
         </div>
         <div class="back-to-home">
-          <a href="#/">Create new template</a>
+          <a  v-on:click="reload()">Create new template</a>
         </div>
 
           
@@ -44,6 +44,10 @@
         
       },
       methods: {
+        reload(){
+          window.location.assign('#/');
+          window.location.reload();
+        },
         saveTelegramUsername(){
            request( { method: 'PUT',url: window.api_url+'links/'+window.location.href.split('?id=')[1],json:{telegram_id: document.getElementById('telegramUsernameValue').value } } , function(er, response, body) {
             if(!er){

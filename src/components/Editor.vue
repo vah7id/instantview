@@ -276,6 +276,7 @@
 
                 setTimeout(function(){
                   self.setEvents();
+                  document.querySelector('.spinner').style.display = 'none';
                 },1000);
 
 
@@ -391,6 +392,8 @@
           //this.rules += '?exist: $body \n';
           //title
 
+          document.querySelector('.submit-template').setAttribute('disabled','disabled');
+
           if( document.querySelector('input[name="channelName"]').value != '' ){
             this.rules += 'channel: "'+document.querySelector('input[name="channelName"]').value+'"'+'\n';
           }
@@ -401,6 +404,7 @@
 
           /*if(!this.types['title'] || !this.types['body']){
             this.showModal('required','Title and Article Body is required!');
+            document.querySelector('.submit-template').removeAttribute('disabled');
             return false;
           }*/
 
@@ -555,7 +559,7 @@
                     }
 
                     title_confirm = true;
-                    this.showModal('Warning ! ','Some template rules Missed because of your html content issues.');
+                    // this.showModal('Warning ! ','Some template rules Missed because of your html content issues.');
                     document.querySelector('.submit-template').innerHTML = 'PUBLISH';
                     
                   }
@@ -612,6 +616,7 @@
                 'created_at': new Date()
               }
             },function(er, response, body) {
+              document.querySelector('.submit-template').removeAttribute('disabled');
               if(!er){
                 document.querySelector('.submit-template').innerHTML = 'PUBLISH';
                 window.location.assign('#/publish?id='+body.id);

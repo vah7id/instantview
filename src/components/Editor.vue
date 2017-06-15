@@ -399,10 +399,10 @@
 
           var iframe = document.getElementById('website-container-iframe-vue').contentWindow.document.querySelector('body');
 
-          if(!this.types['title'] || !this.types['body']){
+          /*if(!this.types['title'] || !this.types['body']){
             this.showModal('required','Title and Article Body is required!');
             return false;
-          }
+          }*/
 
           document.querySelector('.submit-template').innerHTML = 'PUBLISHING...';
 
@@ -418,22 +418,24 @@
 */
                 if(this.types[type_item].classList != null && this.types[type_item].classList != ''){
 
-                  if( iframe.querySelectorAll( this.classMaker(this.types[type_item].classList) ).length == 1 ){
+                  if(this.types[type_item].classList != 'bordered-selected-el'){
+                    if( iframe.querySelectorAll( this.classMaker(this.types[type_item].classList) ).length == 1 ){
 
-                      this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@class="'+this.types[type_item].classList+'"]';
+                        this.rules += type_item+': //'+this.types[type_item].nodeName.toLowerCase()+'[@class="'+this.types[type_item].classList+'"]';
 
-                        if(type_item == 'image_url')
-                          this.rules += '/@src';
+                          if(type_item == 'image_url')
+                            this.rules += '/@src';
 
-                        if(type_item == 'published_date')
-                          this.rules +='/@datetime'
+                          if(type_item == 'published_date')
+                            this.rules +='/@datetime'
 
-                        this.rules += '\n';
-                        title_confirm = true;
+                          this.rules += '\n';
+                          title_confirm = true;
 
-                        console.log(this.rules);
+                          console.log(this.rules);
 
-                      }
+                        }
+                  }
                 }
              // }
 
@@ -451,7 +453,15 @@
 
               }
 
-              
+              var siblings = this.types[type_item].parentNode.childNodes;
+            
+              for(var i = 0 ; i < siblings.length ; i++){
+                if(siblings[i] == this.types[type_item]){
+                  console.log(i)
+                  console.log(siblings[i].nodeName)
+                }
+              }
+
 
               var self = this;
 
@@ -473,9 +483,11 @@
                         if(parent != null){
                          
                           if(parent.classList != null && parent.classList != ''){
-                            tag_rules += parent.nodeName.toLowerCase() + '[@class="'+ parent.classList +'"]' + '//';
-                            console.log(parent.classList)
-                            tag_names += parent.nodeName.toLowerCase()+self.classMaker(parent.classList) + ' ';
+
+                            if(parent.classList !='bordered-selected-el' && parent.classList!= 'bordered-active-el'){
+                              tag_rules += parent.nodeName.toLowerCase() + '[@class="'+ parent.classList +'"]' + '//';
+                              tag_names += parent.nodeName.toLowerCase()+self.classMaker(parent.classList) + ' ';
+                            }
                           }
                           else{
                             tag_rules += parent.nodeName.toLowerCase() + '//';
@@ -485,7 +497,9 @@
                         }
                       });
 
-                      if( iframe.querySelectorAll(tag_names+this.types[type_item].nodeName).length == 1 ){
+                      var length = iframe.querySelectorAll(tag_names+this.types[type_item].nodeName).length;
+
+                      if( length == 1 ){
                           this.rules += type_item+': //'+tag_rules+this.types[type_item].nodeName.toLowerCase();
                            if(type_item == 'image_url')
                               this.rules += '/@src';
@@ -548,6 +562,8 @@
 
                 } while(!title_confirm)
 
+
+
               }
 
               if(this.rules.indexOf('bordered-selected-el')>-1){
@@ -588,7 +604,7 @@
               domain = this.url.split('http://')[1].split('/')[0];
 
 
-          request( {url: window.api_url+'links',method:'POST',
+         /* request( {url: window.api_url+'links',method:'POST',
             json:{
                 'domain':domain,
                 'url': this.url,
@@ -600,7 +616,7 @@
                 document.querySelector('.submit-template').innerHTML = 'PUBLISH';
                 window.location.assign('#/publish?id='+body.id);
               }
-          });
+          });*/
 
         },
 

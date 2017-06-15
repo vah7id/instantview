@@ -13,7 +13,7 @@ import App from './components/App.vue'
 
 const api_port = '8000', 
       protocol = 'http://',
-      api_url = protocol+window.location.hostname+':'+api_port+'/api/';
+      api_url = protocol+'93.190.142.198'+':'+api_port+'/api/';
 
 window.api_url = api_url;
 

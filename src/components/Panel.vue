@@ -6,7 +6,7 @@
         <div v-for="item in items" class="domain-item">
             <h3>{{ item.domain }}</h3>
             <a v-if="item.telegram_id" :href="'http://t.me/'+tid(item.telegram_id)">&nbsp;&nbsp; Telegram ID :  {{ item.telegram_id }}</a>
-            <button v-on:click="alert( item.template )">GET TEMPLATE CONTENT</button>
+            <button v-on:click="alert( getTemplate(item.template) )">GET TEMPLATE CONTENT</button>
             <p>Sample URI : <a :href="item.url">{{ item.url }} </a></p>
             <small>Generated at : {{ item.created_at }}</small>
         </div>
@@ -110,6 +110,35 @@
           else
             console.log(id)
             return id;
+        },
+        getTemplate(tpl){
+          var tmp = tpl;
+          tmp = tmp.replace('title: //meta[@name="title"]/@content',''); 
+          tmp = tmp.replace('title: //meta[@property="og:title"]/@content ',''); 
+          tmp = tmp.replace('title: //meta[@itemprop="name"]/@content',''); 
+          tmp = tmp.replace('description: //meta[@name="description"]/@content',''); 
+          tmp = tmp.replace('description: //meta[@property="og:description"]/@content',''); 
+          tmp = tmp.replace('description: //meta[@itemprop="description"]/@content',''); 
+          tmp = tmp.replace('cover: //meta[@property="og:image"]/@content',''); 
+          tmp = tmp.replace('cover: //meta[@itemprop="image"]/@content',''); 
+          tmp = tmp.replace('author: //meta[@property="article:author"]/@content',''); 
+          tmp = tmp.replace('published_date: //meta[@property="article:published_time"]/@content','');
+
+          tmp = 'title: //meta[@property="og:title"]/@content \n'+ 
+                'title: //meta[@name="title"]/@content \n'+ 
+                'title: //meta[@itemprop="name"]/@content  \n'+ 
+                'description: //meta[@name="description"]/@content  \n'+ 
+                'description: //meta[@property="og:description"]/@content  \n'+ 
+                'description: //meta[@itemprop="description"]/@content  \n'+ 
+                'cover: //meta[@property="og:image"]/@content  \n'+ 
+                'cover: //meta[@itemprop="image"]/@content  \n'+ 
+                'author: //meta[@property="article:author"]/@content  \n'+ 
+                'published_date: //meta[@property="article:published_time"]/@content \n'+tmp;
+
+          return tmp;
+
+
+
         },
         alert(txt){
           alert(txt);

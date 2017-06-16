@@ -113,16 +113,16 @@
         },
         getTemplate(tpl){
           var tmp = tpl;
-          tmp = tmp.replace('title: //meta[@name="title"]/@content',''); 
-          tmp = tmp.replace('title: //meta[@property="og:title"]/@content ',''); 
-          tmp = tmp.replace('title: //meta[@itemprop="name"]/@content',''); 
-          tmp = tmp.replace('description: //meta[@name="description"]/@content',''); 
-          tmp = tmp.replace('description: //meta[@property="og:description"]/@content',''); 
-          tmp = tmp.replace('description: //meta[@itemprop="description"]/@content',''); 
-          tmp = tmp.replace('cover: //meta[@property="og:image"]/@content',''); 
-          tmp = tmp.replace('cover: //meta[@itemprop="image"]/@content',''); 
-          tmp = tmp.replace('author: //meta[@property="article:author"]/@content',''); 
-          tmp = tmp.replace('published_date: //meta[@property="article:published_time"]/@content','');
+          tmp = tmp.replace('title: //meta[@name="title"]/@content \n',''); 
+          tmp = tmp.replace('title: //meta[@property="og:title"]/@content \n',''); 
+          tmp = tmp.replace('title: //meta[@itemprop="name"]/@content \n',''); 
+          tmp = tmp.replace('description: //meta[@name="description"]/@content \n',''); 
+          tmp = tmp.replace('description: //meta[@property="og:description"]/@content \n',''); 
+          tmp = tmp.replace('description: //meta[@itemprop="description"]/@content \n',''); 
+          tmp = tmp.replace('cover: //meta[@property="og:image"]/@content \n',''); 
+          tmp = tmp.replace('cover: //meta[@itemprop="image"]/@content \n',''); 
+          tmp = tmp.replace('author: //meta[@property="article:author"]/@content \n',''); 
+          tmp = tmp.replace('published_date: //meta[@property="article:published_time"]/@content \n','');
 
           tmp = 'title: //meta[@property="og:title"]/@content \n'+ 
                 'title: //meta[@name="title"]/@content \n'+ 

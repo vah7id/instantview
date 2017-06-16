@@ -22,7 +22,24 @@
     padding: 0;
     list-style: none;
   }
-
+.domain-item small{
+  margin-bottom: 10px !important;
+}
+.handler{
+  float: left;
+  width: 100%;
+  height: 30px;
+}
+.domain-item h3{
+  margin-top: 7px !important;
+}
+.domain-item{
+  height: 160px;
+  width: 48% !important;;
+  margin: 10px 0 !important;
+  margin-right: 2% !important;;
+  flex: left !important;;
+}
   /* --- PLACHOLDER STYLES --- */
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */

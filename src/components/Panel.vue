@@ -3,8 +3,8 @@
     <div class="panel-karim">
       <h2>Domains Published</h2>
       <div class="container">
-        <div v-for="item in items" class="domain-item">
-            <h3>{{ item.domain }}</h3>
+        <div v-for="(item,index) in items" class="domain-item">
+            <h3>#{{ index }} - {{ item.domain }}</h3>
             <div style="handler">
               <a v-if="item.telegram_id" :href="'http://t.me/'+tid(item.telegram_id)">&nbsp;&nbsp; Telegram ID :  {{ item.telegram_id }}</a>
             </div>

@@ -139,7 +139,8 @@
                 '@set_attr(src, @content): //img[@itemprop="image"]'+ ' \n'+
                 'cover: //img[@itemprop="image"]'+ ' \n'+
                 'author: //meta[@property="article:author"]/@content  \n'+ 
-                'published_date: //meta[@property="article:published_time"]/@content \n'+tmp;
+                'published_date: //meta[@property="article:published_time"]/@content \n'+tmp+
+                '\n @remove: //table';
         
 
           return tmp;

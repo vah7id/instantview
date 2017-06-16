@@ -132,12 +132,12 @@
                 'description: //meta[@name="description"]/@content  \n'+ 
                 'description: //meta[@property="og:description"]/@content  \n'+ 
                 'description: //meta[@itemprop="description"]/@content  \n'+ 
-                '@replace_tag(<img>): //meta[@property="og:image"]'+ ' \n';
-                '@set_attr(src, @content): //img[@property="og:image"]'+ ' \n';
-                'cover: //img[@property="og:image"]'+ ' \n';
-                '@replace_tag(<img>): //meta[@itemprop="image"]'+ ' \n';
-                '@set_attr(src, @content): //img[@itemprop="image"]'+ ' \n';
-                'cover: //img[@itemprop="image"]'+ ' \n';
+                '@replace_tag(<img>): //meta[@property="og:image"]'+ ' \n'+
+                '@set_attr(src, @content): //img[@property="og:image"]'+ ' \n'+
+                'cover: //img[@property="og:image"]'+ ' \n'+
+                '@replace_tag(<img>): //meta[@itemprop="image"]'+ ' \n'+
+                '@set_attr(src, @content): //img[@itemprop="image"]'+ ' \n'+
+                'cover: //img[@itemprop="image"]'+ ' \n'+
                 'author: //meta[@property="article:author"]/@content  \n'+ 
                 'published_date: //meta[@property="article:published_time"]/@content \n'+tmp;
         

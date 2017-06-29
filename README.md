@@ -1,7 +1,12 @@
-# TELEGRAM INSTANT VIEW
+# TELEGRAM INSTANT VIEW TEMPLATE GENERATOR TOOL
 
-> generate telegram instant view
-## Build Setup
+> Instant View allows Telegram users to view articles from around the Web in a consistent way, with zero loading time. When you get a link to an article via Telegram, simply tap the Instant View button, and the page will open instantly.
+
+We create a simple web application with vue.js which can generate template by selecting a article properties of every sample url of websites in visual editor enviroment as you can see in below:
+
+[![Alt text](https://dl.dropboxusercontent.com/content_link/IVafZWJjdoZKAtOzIYwLghobbU64BFDnaPPpZer8RL1kd30Swviedk41bn0rfRqu/file?dl=1)](http://93.190.142.198/instantview)
+
+## Installation & Running
 
 ``` bash
 # install dependencies

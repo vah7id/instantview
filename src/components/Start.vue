@@ -14,8 +14,8 @@
           </div>
           <div class="middle-links">
             <ul>
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Manual</a></li>
+              <li><a href="https://github.com/vah7id/instantview">GitHub</a></li>
+              <li><a href="https://instantview.telegram.org/docs">Manual</a></li>
               <li><a href="https://telegram.org/blog/instant-view">What is Instant View?</a></li>
             </ul>
           </div>

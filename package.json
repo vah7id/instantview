@@ -14,6 +14,7 @@
   "dependencies": {
     "browser-request": "^0.3.3",
     "clipboard-js": "^0.3.3",
+    "cors": "^2.8.4",
     "vue": "^2.1.0",
     "vue-router": "^2.2.0"
   },

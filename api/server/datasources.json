@@ -4,9 +4,9 @@
     "connector": "remote"
   },
   "testDB": {
-    "host": "198.199.102.94",
+    "host": "localhost",
     "port": 27017,
-    "url": "mongodb://198.199.102.94:27017/test",
+    "url": "mongodb://localhost:27017/test",
     "database": "test",
     "password": "",
     "name": "testDB",

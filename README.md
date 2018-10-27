@@ -21,7 +21,7 @@ npm run build
 # Install services dependencies
 cd api & npm install
 
-# serve services at localhost:3000
+# serve services at localhost:8000
 cd api & node .
 
 ```
